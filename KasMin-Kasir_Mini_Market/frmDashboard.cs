@@ -16,5 +16,10 @@ namespace KasMin_Kasir_Mini_Market
         {
             InitializeComponent();
         }
+
+        private void lblTRPL_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

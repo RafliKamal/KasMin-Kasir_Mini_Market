@@ -41,10 +41,11 @@
             lblTRPL.Location = new Point(368, 185);
             lblTRPL.Margin = new Padding(4, 0, 4, 0);
             lblTRPL.Name = "lblTRPL";
-            lblTRPL.Size = new Size(230, 88);
+            lblTRPL.Size = new Size(357, 88);
             lblTRPL.TabIndex = 15;
-            lblTRPL.Text = "KasMin";
+            lblTRPL.Text = "Dashboard";
             lblTRPL.TextAlign = ContentAlignment.MiddleCenter;
+            lblTRPL.Click += lblTRPL_Click;
             // 
             // pictureBox1
             // 
