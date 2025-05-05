@@ -16,5 +16,6 @@ namespace KasMin_Kasir_Mini_Market
         {
             InitializeComponent();
         }
+
     }
 }

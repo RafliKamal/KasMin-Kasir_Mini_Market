@@ -28,53 +28,103 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDashboard));
-            lblTRPL = new Label();
-            pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            menuStrip1 = new MenuStrip();
+            profilToolStripMenuItem = new ToolStripMenuItem();
+            userToolStripMenuItem = new ToolStripMenuItem();
+            kategoriToolStripMenuItem1 = new ToolStripMenuItem();
+            produkToolStripMenuItem1 = new ToolStripMenuItem();
+            logOutToolStripMenuItem = new ToolStripMenuItem();
+            transaksiToolStripMenuItem = new ToolStripMenuItem();
+            kasirToolStripMenuItem = new ToolStripMenuItem();
+            laporanPenjualanToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // lblTRPL
+            // menuStrip1
             // 
-            lblTRPL.BackColor = Color.Transparent;
-            lblTRPL.Font = new Font("Segoe UI", 27.8490562F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTRPL.Location = new Point(368, 185);
-            lblTRPL.Margin = new Padding(4, 0, 4, 0);
-            lblTRPL.Name = "lblTRPL";
-            lblTRPL.Size = new Size(230, 88);
-            lblTRPL.TabIndex = 15;
-            lblTRPL.Text = "KasMin";
-            lblTRPL.TextAlign = ContentAlignment.MiddleCenter;
+            menuStrip1.ImageScalingSize = new Size(24, 24);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { profilToolStripMenuItem, transaksiToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 33);
+            menuStrip1.TabIndex = 0;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // pictureBox1
+            // profilToolStripMenuItem
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.BackgroundImageLayout = ImageLayout.None;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(203, 152);
-            pictureBox1.Margin = new Padding(4, 5, 4, 5);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(143, 147);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 14;
-            pictureBox1.TabStop = false;
+            profilToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { userToolStripMenuItem, kategoriToolStripMenuItem1, produkToolStripMenuItem1, logOutToolStripMenuItem });
+            profilToolStripMenuItem.Name = "profilToolStripMenuItem";
+            profilToolStripMenuItem.Size = new Size(82, 29);
+            profilToolStripMenuItem.Text = "Master";
+            // 
+            // userToolStripMenuItem
+            // 
+            userToolStripMenuItem.Name = "userToolStripMenuItem";
+            userToolStripMenuItem.Size = new Size(270, 34);
+            userToolStripMenuItem.Text = "User";
+            // 
+            // kategoriToolStripMenuItem1
+            // 
+            kategoriToolStripMenuItem1.Name = "kategoriToolStripMenuItem1";
+            kategoriToolStripMenuItem1.Size = new Size(270, 34);
+            kategoriToolStripMenuItem1.Text = "Kategori";
+            // 
+            // produkToolStripMenuItem1
+            // 
+            produkToolStripMenuItem1.Name = "produkToolStripMenuItem1";
+            produkToolStripMenuItem1.Size = new Size(270, 34);
+            produkToolStripMenuItem1.Text = "Produk";
+            // 
+            // logOutToolStripMenuItem
+            // 
+            logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
+            logOutToolStripMenuItem.Size = new Size(270, 34);
+            logOutToolStripMenuItem.Text = "LogOut";
+            // 
+            // transaksiToolStripMenuItem
+            // 
+            transaksiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kasirToolStripMenuItem, laporanPenjualanToolStripMenuItem });
+            transaksiToolStripMenuItem.Name = "transaksiToolStripMenuItem";
+            transaksiToolStripMenuItem.Size = new Size(65, 29);
+            transaksiToolStripMenuItem.Text = "Kasir";
+            // 
+            // kasirToolStripMenuItem
+            // 
+            kasirToolStripMenuItem.Name = "kasirToolStripMenuItem";
+            kasirToolStripMenuItem.Size = new Size(270, 34);
+            kasirToolStripMenuItem.Text = "Trasaksi";
+            // 
+            // laporanPenjualanToolStripMenuItem
+            // 
+            laporanPenjualanToolStripMenuItem.Name = "laporanPenjualanToolStripMenuItem";
+            laporanPenjualanToolStripMenuItem.Size = new Size(270, 34);
+            laporanPenjualanToolStripMenuItem.Text = "Laporan Penjualan";
             // 
             // frmDashboard
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(lblTRPL);
-            Controls.Add(pictureBox1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             Name = "frmDashboard";
             Text = "frmDashboard";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Label lblTRPL;
-        private PictureBox pictureBox1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem profilToolStripMenuItem;
+        private ToolStripMenuItem userToolStripMenuItem;
+        private ToolStripMenuItem kategoriToolStripMenuItem1;
+        private ToolStripMenuItem produkToolStripMenuItem1;
+        private ToolStripMenuItem logOutToolStripMenuItem;
+        private ToolStripMenuItem transaksiToolStripMenuItem;
+        private ToolStripMenuItem kasirToolStripMenuItem;
+        private ToolStripMenuItem laporanPenjualanToolStripMenuItem;
     }
 }
