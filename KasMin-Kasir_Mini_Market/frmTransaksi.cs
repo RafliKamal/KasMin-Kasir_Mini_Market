@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KasMin_Kasir_Mini_Market
 {
-    public partial class frmTransakasi : Form
+    public partial class frmTransaksi : Form
     {
-        public frmTransakasi()
+        public frmTransaksi()
         {
             InitializeComponent();
         }
