@@ -5,6 +5,12 @@ namespace KasMin_Kasir_Mini_Market
         public frmLogin()
         {
             InitializeComponent();
+
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
