@@ -55,8 +55,8 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(212, 131);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
+            dataGridView1.Location = new Point(272, 131);
+            dataGridView1.Margin = new Padding(2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(575, 335);
@@ -65,15 +65,15 @@
             // textBox1
             // 
             textBox1.Location = new Point(32, 163);
-            textBox1.Margin = new Padding(2, 2, 2, 2);
+            textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(146, 23);
+            textBox1.Size = new Size(204, 23);
             textBox1.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(459, 95);
+            label1.Location = new Point(517, 106);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
             label1.Size = new Size(81, 15);
@@ -103,17 +103,17 @@
             // textBox2
             // 
             textBox2.Location = new Point(32, 212);
-            textBox2.Margin = new Padding(2, 2, 2, 2);
+            textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(146, 23);
+            textBox2.Size = new Size(204, 23);
             textBox2.TabIndex = 5;
             // 
             // textBox3
             // 
             textBox3.Location = new Point(32, 314);
-            textBox3.Margin = new Padding(2, 2, 2, 2);
+            textBox3.Margin = new Padding(2);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(146, 23);
+            textBox3.Size = new Size(204, 23);
             textBox3.TabIndex = 9;
             // 
             // label4
@@ -139,17 +139,17 @@
             // textBox4
             // 
             textBox4.Location = new Point(32, 265);
-            textBox4.Margin = new Padding(2, 2, 2, 2);
+            textBox4.Margin = new Padding(2);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(146, 23);
+            textBox4.Size = new Size(204, 23);
             textBox4.TabIndex = 6;
             // 
             // textBox7
             // 
             textBox7.Location = new Point(32, 418);
-            textBox7.Margin = new Padding(2, 2, 2, 2);
+            textBox7.Margin = new Padding(2);
             textBox7.Name = "textBox7";
-            textBox7.Size = new Size(146, 23);
+            textBox7.Size = new Size(204, 23);
             textBox7.TabIndex = 13;
             // 
             // label8
@@ -175,24 +175,24 @@
             // textBox8
             // 
             textBox8.Location = new Point(32, 368);
-            textBox8.Margin = new Padding(2, 2, 2, 2);
+            textBox8.Margin = new Padding(2);
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(146, 23);
+            textBox8.Size = new Size(204, 23);
             textBox8.TabIndex = 10;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(817, 178);
-            pictureBox1.Margin = new Padding(2, 2, 2, 2);
+            pictureBox1.Location = new Point(883, 178);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(225, 98);
+            pictureBox1.Size = new Size(204, 98);
             pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
             // 
             // button1
             // 
-            button1.Location = new Point(872, 405);
-            button1.Margin = new Padding(2, 2, 2, 2);
+            button1.Location = new Point(928, 405);
+            button1.Margin = new Padding(2);
             button1.Name = "button1";
             button1.Size = new Size(118, 30);
             button1.TabIndex = 15;
@@ -201,8 +201,8 @@
             // 
             // button2
             // 
-            button2.Location = new Point(872, 348);
-            button2.Margin = new Padding(2, 2, 2, 2);
+            button2.Location = new Point(928, 348);
+            button2.Margin = new Padding(2);
             button2.Name = "button2";
             button2.Size = new Size(118, 30);
             button2.TabIndex = 16;
@@ -211,8 +211,8 @@
             // 
             // button3
             // 
-            button3.Location = new Point(872, 293);
-            button3.Margin = new Padding(2, 2, 2, 2);
+            button3.Location = new Point(928, 293);
+            button3.Margin = new Padding(2);
             button3.Name = "button3";
             button3.Size = new Size(118, 30);
             button3.TabIndex = 17;
@@ -223,7 +223,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(899, 146);
+            label6.Location = new Point(955, 146);
             label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
             label6.Size = new Size(64, 20);
@@ -235,18 +235,19 @@
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Arial Rounded MT Bold", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(355, 26);
+            label7.Location = new Point(419, 29);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
             label7.Size = new Size(295, 55);
             label7.TabIndex = 19;
             label7.Text = "Mini Market";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmTransaksi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1067, 510);
+            ClientSize = new Size(1122, 510);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(button3);
@@ -267,7 +268,7 @@
             Controls.Add(label1);
             Controls.Add(textBox1);
             Controls.Add(dataGridView1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "frmTransaksi";
             Text = "frmTransaksi";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

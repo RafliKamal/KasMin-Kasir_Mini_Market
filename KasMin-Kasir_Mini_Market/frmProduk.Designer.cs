@@ -55,15 +55,15 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(135, 107);
+            textBox1.Location = new Point(41, 119);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(172, 23);
+            textBox1.Size = new Size(204, 23);
             textBox1.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(40, 110);
+            label1.Location = new Point(41, 101);
             label1.Name = "label1";
             label1.Size = new Size(48, 15);
             label1.TabIndex = 1;
@@ -72,7 +72,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(40, 162);
+            label2.Location = new Point(41, 153);
             label2.Name = "label2";
             label2.Size = new Size(51, 15);
             label2.TabIndex = 3;
@@ -80,15 +80,15 @@
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(135, 159);
+            textBox2.Location = new Point(41, 171);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(172, 23);
+            textBox2.Size = new Size(204, 23);
             textBox2.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(40, 273);
+            label3.Location = new Point(41, 266);
             label3.Name = "label3";
             label3.Size = new Size(30, 15);
             label3.TabIndex = 7;
@@ -96,15 +96,15 @@
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(135, 270);
+            textBox3.Location = new Point(41, 284);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(172, 23);
+            textBox3.Size = new Size(204, 23);
             textBox3.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(40, 219);
+            label4.Location = new Point(41, 211);
             label4.Name = "label4";
             label4.Size = new Size(80, 15);
             label4.TabIndex = 5;
@@ -112,15 +112,15 @@
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(135, 216);
+            textBox4.Location = new Point(41, 229);
             textBox4.Name = "textBox4";
-            textBox4.Size = new Size(172, 23);
+            textBox4.Size = new Size(204, 23);
             textBox4.TabIndex = 4;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(40, 377);
+            label5.Location = new Point(41, 370);
             label5.Name = "label5";
             label5.Size = new Size(90, 15);
             label5.TabIndex = 11;
@@ -129,7 +129,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(40, 324);
+            label6.Location = new Point(41, 321);
             label6.Name = "label6";
             label6.Size = new Size(39, 15);
             label6.TabIndex = 9;
@@ -137,30 +137,30 @@
             // 
             // textBox6
             // 
-            textBox6.Location = new Point(135, 321);
+            textBox6.Location = new Point(41, 339);
             textBox6.Name = "textBox6";
-            textBox6.Size = new Size(172, 23);
+            textBox6.Size = new Size(204, 23);
             textBox6.TabIndex = 8;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(358, 101);
+            dataGridView1.Location = new Point(288, 101);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(598, 418);
+            dataGridView1.Size = new Size(633, 432);
             dataGridView1.TabIndex = 14;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(137, 374);
+            pictureBox1.Location = new Point(43, 388);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(170, 145);
+            pictureBox1.Size = new Size(202, 145);
             pictureBox1.TabIndex = 15;
             pictureBox1.TabStop = false;
             // 
             // pictureBox2
             // 
-            pictureBox2.Location = new Point(1001, 132);
+            pictureBox2.Location = new Point(964, 132);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(204, 98);
             pictureBox2.TabIndex = 17;
@@ -169,7 +169,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(1050, 101);
+            label7.Location = new Point(1013, 101);
             label7.Name = "label7";
             label7.Size = new Size(95, 15);
             label7.TabIndex = 16;
@@ -178,7 +178,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(1067, 255);
+            label8.Location = new Point(1030, 255);
             label8.Name = "label8";
             label8.Size = new Size(69, 15);
             label8.TabIndex = 19;
@@ -187,7 +187,7 @@
             // 
             // textBox8
             // 
-            textBox8.Location = new Point(1001, 281);
+            textBox8.Location = new Point(964, 281);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(204, 23);
             textBox8.TabIndex = 18;
@@ -195,7 +195,7 @@
             // button1
             // 
             button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(1001, 333);
+            button1.Location = new Point(964, 333);
             button1.Name = "button1";
             button1.Size = new Size(204, 45);
             button1.TabIndex = 20;
@@ -205,7 +205,7 @@
             // button2
             // 
             button2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(1001, 461);
+            button2.Location = new Point(964, 461);
             button2.Name = "button2";
             button2.Size = new Size(204, 45);
             button2.TabIndex = 21;
@@ -216,7 +216,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(474, 33);
+            label9.Location = new Point(465, 33);
             label9.Name = "label9";
             label9.Size = new Size(260, 37);
             label9.TabIndex = 22;
@@ -226,7 +226,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1246, 565);
+            ClientSize = new Size(1212, 565);
             Controls.Add(label9);
             Controls.Add(button2);
             Controls.Add(button1);
