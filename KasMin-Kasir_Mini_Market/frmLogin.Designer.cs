@@ -65,9 +65,10 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(186, 289);
+            btnLogin.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.Location = new Point(146, 315);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(251, 26);
+            btnLogin.Size = new Size(251, 37);
             btnLogin.TabIndex = 11;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
@@ -75,7 +76,7 @@
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(186, 230);
+            txtPassword.Location = new Point(146, 262);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(251, 23);
@@ -83,7 +84,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(186, 172);
+            textBox1.Location = new Point(146, 201);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(251, 23);
             textBox1.TabIndex = 9;
@@ -92,7 +93,7 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Location = new Point(101, 233);
+            label2.Location = new Point(146, 244);
             label2.Name = "label2";
             label2.Size = new Size(57, 15);
             label2.TabIndex = 8;
@@ -102,7 +103,7 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Location = new Point(101, 175);
+            label3.Location = new Point(146, 183);
             label3.Name = "label3";
             label3.Size = new Size(60, 15);
             label3.TabIndex = 7;
@@ -112,7 +113,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(576, 367);
+            ClientSize = new Size(537, 414);
             Controls.Add(lblTRPL);
             Controls.Add(pictureBox1);
             Controls.Add(btnLogin);

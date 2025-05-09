@@ -17,6 +17,14 @@ namespace KasMin_Kasir_Mini_Market
             InitializeComponent();
         }
 
-       
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
