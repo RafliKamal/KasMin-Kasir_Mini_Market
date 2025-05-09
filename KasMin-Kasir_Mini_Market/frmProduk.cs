@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace KasMin_Kasir_Mini_Market
 {
-    public partial class frmProduk: Form
+    public partial class frmProduk : Form
     {
         public frmProduk()
         {
             InitializeComponent();
+        }
+
+        private void frmProduk_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
