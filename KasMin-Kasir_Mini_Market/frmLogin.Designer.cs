@@ -33,7 +33,7 @@
             pictureBox1 = new PictureBox();
             btnLogin = new Button();
             txtPassword = new TextBox();
-            textBox1 = new TextBox();
+            txtUsername = new TextBox();
             label2 = new Label();
             label3 = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -82,12 +82,12 @@
             txtPassword.Size = new Size(251, 23);
             txtPassword.TabIndex = 10;
             // 
-            // textBox1
+            // txtUsername
             // 
-            textBox1.Location = new Point(146, 201);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(251, 23);
-            textBox1.TabIndex = 9;
+            txtUsername.Location = new Point(146, 201);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(251, 23);
+            txtUsername.TabIndex = 9;
             // 
             // label2
             // 
@@ -118,7 +118,7 @@
             Controls.Add(pictureBox1);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
-            Controls.Add(textBox1);
+            Controls.Add(txtUsername);
             Controls.Add(label2);
             Controls.Add(label3);
             Name = "frmLogin";
@@ -134,7 +134,7 @@
         private PictureBox pictureBox1;
         private Button btnLogin;
         private TextBox txtPassword;
-        private TextBox textBox1;
+        private TextBox txtUsername;
         private Label label2;
         private Label label3;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;

@@ -54,6 +54,7 @@
             lblTotal = new Label();
             label13 = new Label();
             lblStok = new Label();
+            btnBatalkan = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).BeginInit();
             SuspendLayout();
@@ -316,11 +317,22 @@
             lblStok.TabIndex = 29;
             lblStok.Text = "-";
             // 
+            // btnBatalkan
+            // 
+            btnBatalkan.Location = new Point(909, 324);
+            btnBatalkan.Margin = new Padding(2);
+            btnBatalkan.Name = "btnBatalkan";
+            btnBatalkan.Size = new Size(204, 30);
+            btnBatalkan.TabIndex = 30;
+            btnBatalkan.Text = "Batalkan Transaksi";
+            btnBatalkan.UseVisualStyleBackColor = true;
+            // 
             // frmTransaksi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1146, 558);
+            Controls.Add(btnBatalkan);
             Controls.Add(lblStok);
             Controls.Add(label13);
             Controls.Add(lblTotal);
@@ -384,5 +396,6 @@
         private Label lblTotal;
         private Label label13;
         private Label lblStok;
+        private Button btnBatalkan;
     }
 }
