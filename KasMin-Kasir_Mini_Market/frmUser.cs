@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace KasMin_Kasir_Mini_Market
 {
-    public partial class fmUser : Form
+    public partial class frmUser : Form
     {
-        public fmUser()
+        public frmUser()
         {
             InitializeComponent();
         }

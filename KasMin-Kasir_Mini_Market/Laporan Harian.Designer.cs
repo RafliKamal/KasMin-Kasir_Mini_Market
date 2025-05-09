@@ -123,6 +123,7 @@
             Controls.Add(label10);
             Controls.Add(dataHarian);
             Name = "Laporan_Harian";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Laporan_Harian";
             ((System.ComponentModel.ISupportInitialize)dataHarian).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataDetailTransaksi).EndInit();

@@ -248,6 +248,7 @@
             Controls.Add(label1);
             Controls.Add(txtProdukId);
             Name = "frmProduk";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmProduk";
             Load += frmProduk_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();

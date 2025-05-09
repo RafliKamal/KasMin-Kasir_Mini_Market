@@ -122,6 +122,7 @@
             Controls.Add(label2);
             Controls.Add(label3);
             Name = "frmLogin";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

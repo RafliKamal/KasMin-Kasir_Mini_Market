@@ -361,6 +361,7 @@
             Controls.Add(dataGridView1);
             Margin = new Padding(2);
             Name = "frmTransaksi";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTransaksi";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).EndInit();

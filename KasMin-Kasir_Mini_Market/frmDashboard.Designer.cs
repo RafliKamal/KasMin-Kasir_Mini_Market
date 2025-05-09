@@ -56,50 +56,55 @@
             profilToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { userToolStripMenuItem, kategoriToolStripMenuItem1, produkToolStripMenuItem1, logOutToolStripMenuItem });
             profilToolStripMenuItem.Name = "profilToolStripMenuItem";
             profilToolStripMenuItem.Size = new Size(55, 22);
-            profilToolStripMenuItem.Text = "Master";
+            profilToolStripMenuItem.Text = "&Master";
             // 
             // userToolStripMenuItem
             // 
             userToolStripMenuItem.Name = "userToolStripMenuItem";
             userToolStripMenuItem.Size = new Size(118, 22);
-            userToolStripMenuItem.Text = "User";
+            userToolStripMenuItem.Text = "&User";
+            userToolStripMenuItem.Click += userToolStripMenuItem_Click;
             // 
             // kategoriToolStripMenuItem1
             // 
             kategoriToolStripMenuItem1.Name = "kategoriToolStripMenuItem1";
             kategoriToolStripMenuItem1.Size = new Size(118, 22);
-            kategoriToolStripMenuItem1.Text = "Kategori";
+            kategoriToolStripMenuItem1.Text = "&Kategori";
+            kategoriToolStripMenuItem1.Click += kategoriToolStripMenuItem1_Click;
             // 
             // produkToolStripMenuItem1
             // 
             produkToolStripMenuItem1.Name = "produkToolStripMenuItem1";
             produkToolStripMenuItem1.Size = new Size(118, 22);
-            produkToolStripMenuItem1.Text = "Produk";
+            produkToolStripMenuItem1.Text = "&Produk";
+            produkToolStripMenuItem1.Click += produkToolStripMenuItem1_Click;
             // 
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
             logOutToolStripMenuItem.Size = new Size(118, 22);
-            logOutToolStripMenuItem.Text = "LogOut";
+            logOutToolStripMenuItem.Text = "&LogOut";
             // 
             // transaksiToolStripMenuItem
             // 
             transaksiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kasirToolStripMenuItem, laporanPenjualanToolStripMenuItem });
             transaksiToolStripMenuItem.Name = "transaksiToolStripMenuItem";
             transaksiToolStripMenuItem.Size = new Size(44, 22);
-            transaksiToolStripMenuItem.Text = "Kasir";
+            transaksiToolStripMenuItem.Text = "&Kasir";
             // 
             // kasirToolStripMenuItem
             // 
             kasirToolStripMenuItem.Name = "kasirToolStripMenuItem";
-            kasirToolStripMenuItem.Size = new Size(172, 22);
-            kasirToolStripMenuItem.Text = "Trasaksi";
+            kasirToolStripMenuItem.Size = new Size(180, 22);
+            kasirToolStripMenuItem.Text = "&Trasaksi";
+            kasirToolStripMenuItem.Click += kasirToolStripMenuItem_Click;
             // 
             // laporanPenjualanToolStripMenuItem
             // 
             laporanPenjualanToolStripMenuItem.Name = "laporanPenjualanToolStripMenuItem";
-            laporanPenjualanToolStripMenuItem.Size = new Size(172, 22);
-            laporanPenjualanToolStripMenuItem.Text = "Laporan Penjualan";
+            laporanPenjualanToolStripMenuItem.Size = new Size(180, 22);
+            laporanPenjualanToolStripMenuItem.Text = "&Laporan Penjualan";
+            laporanPenjualanToolStripMenuItem.Click += laporanPenjualanToolStripMenuItem_Click;
             // 
             // frmDashboard
             // 
@@ -107,8 +112,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(830, 437);
             Controls.Add(menuStrip1);
+            IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "frmDashboard";
             Text = "frmDashboard";
             WindowState = FormWindowState.Maximized;

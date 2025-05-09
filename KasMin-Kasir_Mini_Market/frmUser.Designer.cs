@@ -1,6 +1,6 @@
 ﻿namespace KasMin_Kasir_Mini_Market
 {
-    partial class fmUser
+    partial class frmUser
     {
         /// <summary>
         /// Required designer variable.
@@ -134,7 +134,7 @@
             label3.Text = "Data User";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fmUser
+            // frmUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -150,7 +150,8 @@
             Controls.Add(lblNamaKategori);
             Controls.Add(txtUserId);
             Controls.Add(lblKategoriId);
-            Name = "fmUser";
+            Name = "frmUser";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmUser";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

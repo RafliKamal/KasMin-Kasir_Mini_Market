@@ -98,6 +98,7 @@
             Controls.Add(txtKategoriId);
             Controls.Add(lblKategoriId);
             Name = "frmKategori";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmKategori";
             Load += frmKategori_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
