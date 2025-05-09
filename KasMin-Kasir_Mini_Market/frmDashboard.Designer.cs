@@ -46,7 +46,8 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { profilToolStripMenuItem, transaksiToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 33);
+            menuStrip1.Padding = new Padding(4, 1, 0, 1);
+            menuStrip1.Size = new Size(830, 24);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -54,61 +55,63 @@
             // 
             profilToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { userToolStripMenuItem, kategoriToolStripMenuItem1, produkToolStripMenuItem1, logOutToolStripMenuItem });
             profilToolStripMenuItem.Name = "profilToolStripMenuItem";
-            profilToolStripMenuItem.Size = new Size(82, 29);
+            profilToolStripMenuItem.Size = new Size(55, 22);
             profilToolStripMenuItem.Text = "Master";
             // 
             // userToolStripMenuItem
             // 
             userToolStripMenuItem.Name = "userToolStripMenuItem";
-            userToolStripMenuItem.Size = new Size(270, 34);
+            userToolStripMenuItem.Size = new Size(118, 22);
             userToolStripMenuItem.Text = "User";
             // 
             // kategoriToolStripMenuItem1
             // 
             kategoriToolStripMenuItem1.Name = "kategoriToolStripMenuItem1";
-            kategoriToolStripMenuItem1.Size = new Size(270, 34);
+            kategoriToolStripMenuItem1.Size = new Size(118, 22);
             kategoriToolStripMenuItem1.Text = "Kategori";
             // 
             // produkToolStripMenuItem1
             // 
             produkToolStripMenuItem1.Name = "produkToolStripMenuItem1";
-            produkToolStripMenuItem1.Size = new Size(270, 34);
+            produkToolStripMenuItem1.Size = new Size(118, 22);
             produkToolStripMenuItem1.Text = "Produk";
             // 
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new Size(270, 34);
+            logOutToolStripMenuItem.Size = new Size(118, 22);
             logOutToolStripMenuItem.Text = "LogOut";
             // 
             // transaksiToolStripMenuItem
             // 
             transaksiToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { kasirToolStripMenuItem, laporanPenjualanToolStripMenuItem });
             transaksiToolStripMenuItem.Name = "transaksiToolStripMenuItem";
-            transaksiToolStripMenuItem.Size = new Size(65, 29);
+            transaksiToolStripMenuItem.Size = new Size(44, 22);
             transaksiToolStripMenuItem.Text = "Kasir";
             // 
             // kasirToolStripMenuItem
             // 
             kasirToolStripMenuItem.Name = "kasirToolStripMenuItem";
-            kasirToolStripMenuItem.Size = new Size(270, 34);
+            kasirToolStripMenuItem.Size = new Size(172, 22);
             kasirToolStripMenuItem.Text = "Trasaksi";
             // 
             // laporanPenjualanToolStripMenuItem
             // 
             laporanPenjualanToolStripMenuItem.Name = "laporanPenjualanToolStripMenuItem";
-            laporanPenjualanToolStripMenuItem.Size = new Size(270, 34);
+            laporanPenjualanToolStripMenuItem.Size = new Size(172, 22);
             laporanPenjualanToolStripMenuItem.Text = "Laporan Penjualan";
             // 
             // frmDashboard
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(830, 437);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "frmDashboard";
             Text = "frmDashboard";
+            WindowState = FormWindowState.Maximized;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
