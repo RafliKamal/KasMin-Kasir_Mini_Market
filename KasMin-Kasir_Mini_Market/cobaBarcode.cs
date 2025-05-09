@@ -8,13 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Emgu.CV;
-using Emgu.CV.Structure;
-using ZXing;
-using System.Drawing;
-
-using ZXing.Common;
-using AForge.Video;
+using MessagingToolkit.Barcode;
+using BasselTech_CamCapture;
 
 
 
@@ -22,45 +17,70 @@ namespace KasMin_Kasir_Mini_Market
 {
     public partial class cobaBarcode : Form
     {
+        Camera cam;
+        System.Windows.Forms.Timer t;
+        BackgroundWorker worker;
+        Bitmap? CapImage;
+
+
         public cobaBarcode()
         {
             InitializeComponent();
-        }
+        
+        
+            t = new System.Windows.Forms.Timer();
+            cam = new Camera(pb_barcode);
+            worker = new BackgroundWorker();
 
-        FilterInfoCollection filterIntoCollection;
-        VideoCaptureDevice videoCaptureDevice;
+            worker.DoWork += Worker_DoWork;
+            t.Tick += T_Tick;
+            t.Interval = 1;
+
+        }
+            private void T_Tick(object sender, EventArgs e)
+        {
+            // Capture the image from the camera
+            CapImage = cam.GetBitmap();
+            if (CapImage != null && !worker.IsBusy)
+                worker.RunWorkerAsync();
+        }
+         
+        
+
+            private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BarcodeDecoder decoder = new BarcodeDecoder();
+            // Decode the barcode from the captured image
+            try
+            {
+                string decoded_text = decoder.Decode(CapImage).Text;
+                MessageBox.Show(decoded_text);
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //videoCaptureDevice = new VideoCaptureDevice(filterIntoCollection[cb_camera.SelectedIndex].MonikerString);
-            //videoCaptureDevice.NewFrame += VideoCaptureDevice_NewFrame;
-            //videoCaptureDevice.Start();
+            try
+            {
+                cam.Start();
+                t.Start();
+
+            }
+            catch (Exception ex)
+            {
+                cam.Stop();
+                MessageBox.Show("Error starting camera: " + ex.Message);
+            }
         }
 
         private void cobaBarcode_Load(object sender, EventArgs e)
         {
-            //filterIntoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            //foreach (FilterInfo device in filterIntoCollection)
-            //    cb_camera.Items.Add(device.Name);
-            //cb_camera.SelectedIndex = 0;
+
 
         }
-
-        //private void VideoCaptureDevice_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
-        //{
-        //    Bitmap bitmap = (Bitmap)eventArgs.Frame.Clone();
-        //    BarcodeReader reader = new BarcodeReader();
-
-        //    var result = reader.Decode(bitmap);
-        //    if (result != null)
-        //    {
-        //        txtBarcode.Invoke(new MethodInvoker(delegate ()
-        //        {
-        //            txtBarcode.Text = result.Text;
-        //        }));
-             
-        //    }pb_barcode.Image = bitmap;
-        //}
     }
 }

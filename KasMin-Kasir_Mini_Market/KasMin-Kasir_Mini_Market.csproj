@@ -22,4 +22,13 @@
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BasselTech CamCapture">
+      <HintPath>..\..\..\BasselTech CamCapture.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.Barcode">
+      <HintPath>..\..\..\MessagingToolkit.Barcode.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
