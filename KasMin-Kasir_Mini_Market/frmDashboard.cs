@@ -52,5 +52,12 @@ namespace KasMin_Kasir_Mini_Market
             laporan.MdiParent = this;
             laporan.Show();
         }
+
+        private void logOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            frmLogin login = new frmLogin();
+            login.Show();
+        }
     }
 }

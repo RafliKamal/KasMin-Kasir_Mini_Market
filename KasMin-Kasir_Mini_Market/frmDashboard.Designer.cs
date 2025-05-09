@@ -82,8 +82,9 @@
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new Size(118, 22);
+            logOutToolStripMenuItem.Size = new Size(180, 22);
             logOutToolStripMenuItem.Text = "&LogOut";
+            logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
             // 
             // transaksiToolStripMenuItem
             // 
@@ -96,7 +97,7 @@
             // 
             kasirToolStripMenuItem.Name = "kasirToolStripMenuItem";
             kasirToolStripMenuItem.Size = new Size(180, 22);
-            kasirToolStripMenuItem.Text = "&Trasaksi";
+            kasirToolStripMenuItem.Text = "&Transaksi";
             kasirToolStripMenuItem.Click += kasirToolStripMenuItem_Click;
             // 
             // laporanPenjualanToolStripMenuItem
@@ -128,12 +129,15 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem profilToolStripMenuItem;
-        private ToolStripMenuItem userToolStripMenuItem;
-        private ToolStripMenuItem kategoriToolStripMenuItem1;
-        private ToolStripMenuItem produkToolStripMenuItem1;
+       
         private ToolStripMenuItem logOutToolStripMenuItem;
         private ToolStripMenuItem transaksiToolStripMenuItem;
         private ToolStripMenuItem kasirToolStripMenuItem;
-        private ToolStripMenuItem laporanPenjualanToolStripMenuItem;
+        // In frmDashboard.cs, update the access modifiers for the relevant ToolStripMenuItems
+        public ToolStripMenuItem userToolStripMenuItem;
+        public ToolStripMenuItem kategoriToolStripMenuItem1;
+        public ToolStripMenuItem produkToolStripMenuItem1;
+        public ToolStripMenuItem laporanPenjualanToolStripMenuItem;
+
     }
 }

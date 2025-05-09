@@ -31,7 +31,6 @@
             txtProdukId = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            txtKategori = new TextBox();
             label3 = new Label();
             txtStok = new TextBox();
             label4 = new Label();
@@ -48,6 +47,9 @@
             btnScanBarcode = new Button();
             btnSimpan = new Button();
             label9 = new Label();
+            btnBatal = new Button();
+            cmbKategoriId = new ComboBox();
+            cb_camera = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picProduk).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).BeginInit();
@@ -77,13 +79,6 @@
             label2.Size = new Size(51, 15);
             label2.TabIndex = 3;
             label2.Text = "Kategori";
-            // 
-            // txtKategori
-            // 
-            txtKategori.Location = new Point(41, 171);
-            txtKategori.Name = "txtKategori";
-            txtKategori.Size = new Size(204, 23);
-            txtKategori.TabIndex = 2;
             // 
             // label3
             // 
@@ -201,11 +196,12 @@
             btnScanBarcode.TabIndex = 20;
             btnScanBarcode.Text = "Scan Barcode";
             btnScanBarcode.UseVisualStyleBackColor = true;
+            btnScanBarcode.Click += btnScanBarcode_Click;
             // 
             // btnSimpan
             // 
             btnSimpan.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSimpan.Location = new Point(964, 461);
+            btnSimpan.Location = new Point(964, 475);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(204, 45);
             btnSimpan.TabIndex = 21;
@@ -222,11 +218,40 @@
             label9.TabIndex = 22;
             label9.Text = "Form Daftar Produk";
             // 
+            // btnBatal
+            // 
+            btnBatal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBatal.Location = new Point(964, 388);
+            btnBatal.Name = "btnBatal";
+            btnBatal.Size = new Size(204, 45);
+            btnBatal.TabIndex = 23;
+            btnBatal.Text = "Batal";
+            btnBatal.UseVisualStyleBackColor = true;
+            // 
+            // cmbKategoriId
+            // 
+            cmbKategoriId.FormattingEnabled = true;
+            cmbKategoriId.Location = new Point(41, 171);
+            cmbKategoriId.Name = "cmbKategoriId";
+            cmbKategoriId.Size = new Size(202, 23);
+            cmbKategoriId.TabIndex = 24;
+            // 
+            // cb_camera
+            // 
+            cb_camera.FormattingEnabled = true;
+            cb_camera.Location = new Point(964, 33);
+            cb_camera.Name = "cb_camera";
+            cb_camera.Size = new Size(204, 23);
+            cb_camera.TabIndex = 25;
+            // 
             // frmProduk
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1212, 565);
+            Controls.Add(cb_camera);
+            Controls.Add(cmbKategoriId);
+            Controls.Add(btnBatal);
             Controls.Add(label9);
             Controls.Add(btnSimpan);
             Controls.Add(btnScanBarcode);
@@ -244,13 +269,12 @@
             Controls.Add(label4);
             Controls.Add(txtNamaProduk);
             Controls.Add(label2);
-            Controls.Add(txtKategori);
             Controls.Add(label1);
             Controls.Add(txtProdukId);
             Name = "frmProduk";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmProduk";
-            Load += frmProduk_Load;
+            Load += frmProduk_Load_1;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)picProduk).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).EndInit();
@@ -263,7 +287,6 @@
         private TextBox txtProdukId;
         private Label label1;
         private Label label2;
-        private TextBox txtKategori;
         private Label label3;
         private TextBox txtStok;
         private Label label4;
@@ -280,5 +303,8 @@
         private Button btnScanBarcode;
         private Button btnSimpan;
         private Label label9;
+        private Button btnBatal;
+        private ComboBox cmbKategoriId;
+        private ComboBox cb_camera;
     }
 }

@@ -39,29 +39,32 @@
             label2 = new Label();
             cmbRole = new ComboBox();
             label3 = new Label();
+            btnBatal = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // btnTambah
             // 
-            btnTambah.Location = new Point(424, 157);
+            btnTambah.Location = new Point(116, 394);
             btnTambah.Name = "btnTambah";
-            btnTambah.Size = new Size(94, 39);
+            btnTambah.Size = new Size(77, 39);
             btnTambah.TabIndex = 11;
             btnTambah.Text = "Tambah";
             btnTambah.UseVisualStyleBackColor = true;
+            btnTambah.Click += btnTambah_Click;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(54, 228);
+            dataGridView1.Location = new Point(235, 134);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(464, 329);
             dataGridView1.TabIndex = 10;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(54, 187);
+            txtPassword.Location = new Point(36, 291);
             txtPassword.Name = "txtPassword";
             txtPassword.Size = new Size(157, 23);
             txtPassword.TabIndex = 9;
@@ -69,7 +72,7 @@
             // lblNamaKategori
             // 
             lblNamaKategori.AutoSize = true;
-            lblNamaKategori.Location = new Point(54, 169);
+            lblNamaKategori.Location = new Point(36, 273);
             lblNamaKategori.Name = "lblNamaKategori";
             lblNamaKategori.Size = new Size(57, 15);
             lblNamaKategori.TabIndex = 8;
@@ -77,7 +80,7 @@
             // 
             // txtUserId
             // 
-            txtUserId.Location = new Point(54, 134);
+            txtUserId.Location = new Point(36, 177);
             txtUserId.Name = "txtUserId";
             txtUserId.Size = new Size(157, 23);
             txtUserId.TabIndex = 7;
@@ -85,7 +88,7 @@
             // lblKategoriId
             // 
             lblKategoriId.AutoSize = true;
-            lblKategoriId.Location = new Point(54, 116);
+            lblKategoriId.Location = new Point(36, 159);
             lblKategoriId.Name = "lblKategoriId";
             lblKategoriId.Size = new Size(43, 15);
             lblKategoriId.TabIndex = 6;
@@ -94,7 +97,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(250, 169);
+            label1.Location = new Point(36, 325);
             label1.Name = "label1";
             label1.Size = new Size(30, 15);
             label1.TabIndex = 14;
@@ -102,7 +105,7 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(250, 134);
+            txtUsername.Location = new Point(36, 234);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(157, 23);
             txtUsername.TabIndex = 13;
@@ -110,7 +113,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(250, 116);
+            label2.Location = new Point(36, 216);
             label2.Name = "label2";
             label2.Size = new Size(60, 15);
             label2.TabIndex = 12;
@@ -118,8 +121,9 @@
             // 
             // cmbRole
             // 
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.FormattingEnabled = true;
-            cmbRole.Location = new Point(250, 187);
+            cmbRole.Location = new Point(36, 343);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(157, 23);
             cmbRole.TabIndex = 15;
@@ -129,16 +133,27 @@
             label3.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(-2, 18);
             label3.Name = "label3";
-            label3.Size = new Size(570, 75);
+            label3.Size = new Size(726, 75);
             label3.TabIndex = 16;
             label3.Text = "Data User";
             label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnBatal
+            // 
+            btnBatal.Location = new Point(36, 394);
+            btnBatal.Name = "btnBatal";
+            btnBatal.Size = new Size(77, 39);
+            btnBatal.TabIndex = 17;
+            btnBatal.Text = "Batal";
+            btnBatal.UseVisualStyleBackColor = true;
+            btnBatal.Click += btnBatal_Click;
             // 
             // frmUser
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(569, 584);
+            ClientSize = new Size(726, 528);
+            Controls.Add(btnBatal);
             Controls.Add(label3);
             Controls.Add(cmbRole);
             Controls.Add(label1);
@@ -153,6 +168,7 @@
             Name = "frmUser";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmUser";
+            Load += frmUser_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -171,5 +187,6 @@
         private Label label2;
         private ComboBox cmbRole;
         private Label label3;
+        private Button btnBatal;
     }
 }

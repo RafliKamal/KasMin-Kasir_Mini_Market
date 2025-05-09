@@ -30,10 +30,26 @@ namespace KasMin_Kasir_Mini_Market
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.HasRows)
                     {
+                        reader.Read();
+                        string role = reader["role"].ToString();
                         MessageBox.Show("Selamat Datang " + txtUsername.Text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
                         frmDashboard frmDash = new frmDashboard();
                         frmDash.Show();
+                        if(role == "Admin")
+                        {
+                            frmDash.userToolStripMenuItem.Visible = true;
+                            frmDash.kategoriToolStripMenuItem1.Visible = true;
+                            frmDash.produkToolStripMenuItem1.Visible = true;
+                            frmDash.laporanPenjualanToolStripMenuItem.Visible = true;
+                        }
+                        else
+                        {
+                            frmDash.userToolStripMenuItem.Visible = false;
+                            frmDash.kategoriToolStripMenuItem1.Visible = false;
+                            frmDash.produkToolStripMenuItem1.Visible = false;
+                            frmDash.laporanPenjualanToolStripMenuItem.Visible = false;
+                        }
                         break;
                     }
                     else
