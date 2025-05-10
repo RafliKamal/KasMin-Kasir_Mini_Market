@@ -60,6 +60,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(464, 329);
             dataGridView1.TabIndex = 10;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // txtPassword

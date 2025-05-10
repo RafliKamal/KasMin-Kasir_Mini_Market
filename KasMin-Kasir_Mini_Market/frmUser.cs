@@ -31,7 +31,7 @@ namespace KasMin_Kasir_Mini_Market
             }
 
             GenerateUserId();
-           
+
 
 
 
@@ -141,12 +141,7 @@ namespace KasMin_Kasir_Mini_Market
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtUserId.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
-            txtUsername.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
-            txtPassword.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-            cmbRole.SelectedItem = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-            btnTambah.Text = "Update";
-            btnBatal.Text = "Hapus";
+           
         }
 
         private void btnBatal_Click(object sender, EventArgs e)
@@ -160,7 +155,7 @@ namespace KasMin_Kasir_Mini_Market
             {
                 clearFields();
                 btnTambah.Text = "Tambah";
-               
+
             }
 
         }
@@ -179,6 +174,28 @@ namespace KasMin_Kasir_Mini_Market
                 MessageBox.Show("Data berhasil dihapus!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DisplayData();
             }
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridView1.Rows.Count)
+            {
+                txtUserId.Text = dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtUsername.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
+                txtPassword.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
+                cmbRole.SelectedItem = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
+                btnTambah.Text = "Update";
+                btnBatal.Text = "Hapus";
+            }
+            if (txtUserId.Text == "")
+            {
+                // Jika tidak ada baris yang valid, reset semua field
+                clearFields();
+                GenerateUserId(); // Generate new User ID
+                btnTambah.Text = "Tambah"; // Reset button text to "Tambah"
+                btnBatal.Text = "Batal"; // Reset button text to "Batal"
+            }
+            
         }
     }
 }

@@ -233,6 +233,7 @@ namespace KasMin_Kasir_Mini_Market
                     cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Data produk berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnSimpan.Text = "Simpan";
             }
             DisplayData();
         }
@@ -337,7 +338,7 @@ namespace KasMin_Kasir_Mini_Market
                 btnSimpan.Text = "Update";
                 btnBatal.Text = "Hapus";
             }
-            else
+            if (txtProdukId.Text == "")
             {
                 // Klik di area kosong / header — reset form
 
@@ -352,6 +353,8 @@ namespace KasMin_Kasir_Mini_Market
                 btnSimpan.Text = "Simpan";
                 btnBatal.Text = "Batal";
             }
+          
+          
         }
 
 
@@ -359,6 +362,22 @@ namespace KasMin_Kasir_Mini_Market
         {
             if (btnBatal.Text == "Batal")
             {
+                StopCamera();
+                if (videoSource != null && videoSource.IsRunning)
+                {
+                    try
+                    {
+                        // Hentikan kamera secara sinkron dengan aman
+                        videoSource.SignalToStop();
+                        videoSource.WaitForStop();
+                        videoSource.NewFrame -= new NewFrameEventHandler(VideoSource_NewFrame);
+                        videoSource = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Gagal menghentikan kamera: " + ex.Message);
+                    }
+                }
                 txtProdukId.Clear();
                 cmbKategoriId.SelectedIndex = -1;
                 txtNamaProduk.Clear();
