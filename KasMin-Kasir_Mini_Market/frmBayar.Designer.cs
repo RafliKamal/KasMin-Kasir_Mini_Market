@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblTotal = new Label();
-            label11 = new Label();
             label10 = new Label();
             label2 = new Label();
             txtUangMasuk = new TextBox();
@@ -39,29 +37,9 @@
             txtKembalian = new TextBox();
             btnLunas = new Button();
             btnBatal = new Button();
+            labelTotal = new Label();
+            btnCek = new Button();
             SuspendLayout();
-            // 
-            // lblTotal
-            // 
-            lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI", 17F);
-            lblTotal.Location = new Point(138, 36);
-            lblTotal.Margin = new Padding(2, 0, 2, 0);
-            lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(26, 31);
-            lblTotal.TabIndex = 30;
-            lblTotal.Text = "0";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 17F);
-            label11.Location = new Point(101, 36);
-            label11.Margin = new Padding(2, 0, 2, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(42, 31);
-            label11.TabIndex = 29;
-            label11.Text = "Rp";
             // 
             // label10
             // 
@@ -89,7 +67,7 @@
             txtUangMasuk.Location = new Point(56, 173);
             txtUangMasuk.Margin = new Padding(2);
             txtUangMasuk.Name = "txtUangMasuk";
-            txtUangMasuk.Size = new Size(204, 23);
+            txtUangMasuk.Size = new Size(218, 23);
             txtUangMasuk.TabIndex = 31;
             // 
             // cmbMetode
@@ -97,7 +75,7 @@
             cmbMetode.FormattingEnabled = true;
             cmbMetode.Location = new Point(56, 117);
             cmbMetode.Name = "cmbMetode";
-            cmbMetode.Size = new Size(204, 23);
+            cmbMetode.Size = new Size(306, 23);
             cmbMetode.TabIndex = 34;
             // 
             // label1
@@ -121,37 +99,62 @@
             // 
             // txtKembalian
             // 
+            txtKembalian.Enabled = false;
             txtKembalian.Location = new Point(56, 234);
             txtKembalian.Margin = new Padding(2);
             txtKembalian.Name = "txtKembalian";
-            txtKembalian.Size = new Size(204, 23);
+            txtKembalian.Size = new Size(306, 23);
             txtKembalian.TabIndex = 35;
             // 
             // btnLunas
             // 
             btnLunas.Font = new Font("Segoe UI", 12F);
-            btnLunas.Location = new Point(162, 290);
+            btnLunas.Location = new Point(233, 282);
             btnLunas.Name = "btnLunas";
-            btnLunas.Size = new Size(98, 37);
+            btnLunas.Size = new Size(129, 45);
             btnLunas.TabIndex = 37;
             btnLunas.Text = "Lunas";
             btnLunas.UseVisualStyleBackColor = true;
+            btnLunas.Click += btnLunas_Click;
             // 
             // btnBatal
             // 
             btnBatal.Font = new Font("Segoe UI", 12F);
-            btnBatal.Location = new Point(56, 290);
+            btnBatal.Location = new Point(56, 282);
             btnBatal.Name = "btnBatal";
-            btnBatal.Size = new Size(98, 37);
+            btnBatal.Size = new Size(141, 45);
             btnBatal.TabIndex = 38;
             btnBatal.Text = "Batal";
             btnBatal.UseVisualStyleBackColor = true;
+            btnBatal.Click += btnBatal_Click;
+            // 
+            // labelTotal
+            // 
+            labelTotal.AutoSize = true;
+            labelTotal.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelTotal.Location = new Point(101, 36);
+            labelTotal.Margin = new Padding(2, 0, 2, 0);
+            labelTotal.Name = "labelTotal";
+            labelTotal.Size = new Size(0, 45);
+            labelTotal.TabIndex = 39;
+            // 
+            // btnCek
+            // 
+            btnCek.Location = new Point(287, 173);
+            btnCek.Name = "btnCek";
+            btnCek.Size = new Size(75, 24);
+            btnCek.TabIndex = 40;
+            btnCek.Text = "Cek";
+            btnCek.UseVisualStyleBackColor = true;
+            btnCek.Click += btnCek_Click;
             // 
             // frmBayar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(319, 367);
+            ClientSize = new Size(409, 367);
+            Controls.Add(btnCek);
+            Controls.Add(labelTotal);
             Controls.Add(btnBatal);
             Controls.Add(btnLunas);
             Controls.Add(label3);
@@ -160,19 +163,19 @@
             Controls.Add(label1);
             Controls.Add(label2);
             Controls.Add(txtUangMasuk);
-            Controls.Add(lblTotal);
-            Controls.Add(label11);
             Controls.Add(label10);
             Name = "frmBayar";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "frmBayar";
+            Load += frmBayar_Load;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
+        private Label labelTotal;
         private Label lblTotal;
-        private Label label11;
         private Label label10;
         private Label label2;
         private TextBox txtTransaksiId;
@@ -186,5 +189,6 @@
         private TextBox txtKembalian;
         private Button btnLunas;
         private Button btnBatal;
+        private Button btnCek;
     }
 }

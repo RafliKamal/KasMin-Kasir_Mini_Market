@@ -49,7 +49,6 @@
             cmbNamaProduk = new ComboBox();
             btnTambahProduk = new Button();
             label10 = new Label();
-            label11 = new Label();
             lblTotal = new Label();
             label13 = new Label();
             lblStok = new Label();
@@ -70,6 +69,7 @@
             dataGridTransaksi.RowHeadersWidth = 62;
             dataGridTransaksi.Size = new Size(592, 335);
             dataGridTransaksi.TabIndex = 0;
+            dataGridTransaksi.CellClick += dataGridTransaksi_CellClick;
             // 
             // txtTransaksiId
             // 
@@ -163,6 +163,7 @@
             picBarcode.Margin = new Padding(2);
             picBarcode.Name = "picBarcode";
             picBarcode.Size = new Size(204, 98);
+            picBarcode.SizeMode = PictureBoxSizeMode.StretchImage;
             picBarcode.TabIndex = 14;
             picBarcode.TabStop = false;
             // 
@@ -176,6 +177,7 @@
             btnBayar.TabIndex = 15;
             btnBayar.Text = "Bayar";
             btnBayar.UseVisualStyleBackColor = true;
+            btnBayar.Click += btnBayar_Click;
             // 
             // btnHapus
             // 
@@ -186,6 +188,7 @@
             btnHapus.TabIndex = 16;
             btnHapus.Text = "Hapus";
             btnHapus.UseVisualStyleBackColor = true;
+            btnHapus.Click += btnHapus_Click;
             // 
             // btnUpdate
             // 
@@ -196,6 +199,7 @@
             btnUpdate.TabIndex = 17;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // label6
             // 
@@ -255,6 +259,7 @@
             btnTambahProduk.TabIndex = 24;
             btnTambahProduk.Text = "Tambah Produk";
             btnTambahProduk.UseVisualStyleBackColor = true;
+            btnTambahProduk.Click += btnTambahProduk_Click;
             // 
             // label10
             // 
@@ -267,27 +272,16 @@
             label10.TabIndex = 25;
             label10.Text = "Total";
             // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(328, 489);
-            label11.Margin = new Padding(2, 0, 2, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(58, 45);
-            label11.TabIndex = 26;
-            label11.Text = "Rp";
-            // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotal.Location = new Point(376, 489);
+            lblTotal.Location = new Point(320, 489);
             lblTotal.Margin = new Padding(2, 0, 2, 0);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(37, 45);
+            lblTotal.Size = new Size(84, 45);
             lblTotal.TabIndex = 27;
-            lblTotal.Text = "0";
+            lblTotal.Text = "Rp 0";
             // 
             // label13
             // 
@@ -320,6 +314,7 @@
             btnBatalkan.TabIndex = 30;
             btnBatalkan.Text = "Batalkan Transaksi";
             btnBatalkan.UseVisualStyleBackColor = true;
+            btnBatalkan.Click += btnBatalkan_Click;
             // 
             // cb_camera
             // 
@@ -328,6 +323,7 @@
             cb_camera.Name = "cb_camera";
             cb_camera.Size = new Size(204, 23);
             cb_camera.TabIndex = 35;
+            cb_camera.SelectedIndexChanged += cb_camera_SelectedIndexChanged;
             // 
             // txtBarcode
             // 
@@ -356,7 +352,6 @@
             Controls.Add(lblStok);
             Controls.Add(label13);
             Controls.Add(lblTotal);
-            Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(btnTambahProduk);
             Controls.Add(cmbNamaProduk);
@@ -382,6 +377,7 @@
             Name = "frmTransaksi";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTransaksi";
+            FormClosing += frmTransaksi_FormClosing;
             Load += frmTransaksi_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridTransaksi).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).EndInit();
@@ -412,7 +408,6 @@
         private ComboBox cmbNamaProduk;
         private Button btnTambahProduk;
         private Label label10;
-        private Label label11;
         private Label lblTotal;
         private Label label13;
         private Label lblStok;

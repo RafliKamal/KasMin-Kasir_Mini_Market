@@ -22,7 +22,7 @@ namespace KasMin_Kasir_Mini_Market
         {
             generateID();
             displayData();
-            txtKategoriId.Enabled = false; // Disable the Kategori ID textbox
+            txtKategoriId.Enabled = true;
         }
 
         private void displayData()
@@ -35,6 +35,11 @@ namespace KasMin_Kasir_Mini_Market
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataKategori.DataSource = dt;
+            }
+            if (txtKategoriId.Text == "")
+            {
+                btnTambah.Text = "Tambah";
+                return;
             }
         }
 
@@ -87,17 +92,39 @@ namespace KasMin_Kasir_Mini_Market
                     displayData();
                     generateID();
                 }
+                
+                btnTambah.Text = "Tambah"; // Reset button text
             }
         }
 
         private void dataKategori_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtKategoriId.Text = dataKategori.Rows[e.RowIndex].Cells[0].Value.ToString();
-            txtNamaKategori.Text = dataKategori.Rows[e.RowIndex].Cells[1].Value.ToString();
+            if (e.RowIndex >= 0 && e.RowIndex < dataKategori.Rows.Count)
+            {
+                // Klik pada baris valid, isi data ke TextBox
+                txtKategoriId.Text = dataKategori.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtNamaKategori.Text = dataKategori.Rows[e.RowIndex].Cells[1].Value.ToString();
 
-            btnTambah.Text = "Update";
-            btnBatal.Text = "Hapus";
+                btnTambah.Text = "Update";
+                btnBatal.Text = "Hapus";
+            }
+            else
+            {
+                // Klik di area kosong, generate ID baru
+                generateID();
+                txtNamaKategori.Clear();
+                btnTambah.Text = "Tambah";
+                btnBatal.Text = "Batal";
+            }
+            if (txtKategoriId.Text == "")
+            {
+                generateID();
+                btnTambah.Text = "Tambah";
+                btnBatal.Text = "Batal";
+                return;
+            }
         }
+
 
         private void btnBatal_Click(object sender, EventArgs e)
         {

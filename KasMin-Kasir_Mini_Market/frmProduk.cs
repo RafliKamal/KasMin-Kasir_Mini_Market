@@ -32,17 +32,25 @@ namespace KasMin_Kasir_Mini_Market
 
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
+            if (this.IsDisposed || this.Disposing) return;
+
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
 
             if (picBarcode.IsHandleCreated && !picBarcode.IsDisposed)
             {
-                picBarcode.Invoke(new MethodInvoker(delegate
+                try
                 {
-                    picBarcode.Image?.Dispose();
-                    picBarcode.Image = (Bitmap)frame.Clone();
-                }));
+                    picBarcode.Invoke(new MethodInvoker(delegate
+                    {
+                        picBarcode.Image?.Dispose();
+                        picBarcode.Image = (Bitmap)frame.Clone();
+                    }));
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Ignore if picture box is already disposed
+                }
             }
-
 
             if (barcodeDetected)
             {
@@ -98,6 +106,10 @@ namespace KasMin_Kasir_Mini_Market
                 da.Fill(dt);
                 dataGridProduk.DataSource = dt;
             }
+            if (btnScanBarcode.Text == "Stop Scan")
+            {
+                this.ControlBox = false;
+            }
         }
 
 
@@ -127,6 +139,8 @@ namespace KasMin_Kasir_Mini_Market
             btnSimpan.Text = "Simpan";
             GenerateProdukId();
             LoadKategori();
+
+           
         }
 
         private void GenerateProdukId()
@@ -201,7 +215,7 @@ namespace KasMin_Kasir_Mini_Market
                     MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else if (btnSimpan.Text == "Ubah")
+            else if (btnSimpan.Text == "Update")
             {
                 using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
                 {
@@ -220,6 +234,7 @@ namespace KasMin_Kasir_Mini_Market
                 }
                 MessageBox.Show("Data produk berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            DisplayData();
         }
 
         private void btnScanBarcode_Click(object sender, EventArgs e)
@@ -233,6 +248,10 @@ namespace KasMin_Kasir_Mini_Market
                     videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
                     videoSource.Start();
                     btnScanBarcode.Text = "Stop Scan";
+                    if (btnScanBarcode.Text == "Stop Scan")
+                    {
+                        this.ControlBox = false;
+                    }
                 }
                 else
                 {
@@ -288,6 +307,9 @@ namespace KasMin_Kasir_Mini_Market
                     btnScanBarcode.Invoke(new MethodInvoker(() =>
                     {
                         btnScanBarcode.Text = "Scan Barcode";
+                       
+                            this.ControlBox = true;
+                        
                     }));
                 }
             }
@@ -297,21 +319,41 @@ namespace KasMin_Kasir_Mini_Market
 
 
 
-  
+
 
         private void dataGridProduk_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtProdukId.Text = dataGridProduk.Rows[e.RowIndex].Cells[0].Value.ToString();
-            cmbKategoriId.SelectedValue = dataGridProduk.Rows[e.RowIndex].Cells[1].Value.ToString();
-            txtNamaProduk.Text = dataGridProduk.Rows[e.RowIndex].Cells[2].Value.ToString();
-            txtStok.Text = dataGridProduk.Rows[e.RowIndex].Cells[3].Value.ToString();
-            txtHarga.Text = dataGridProduk.Rows[e.RowIndex].Cells[4].Value.ToString();
-            picProduk.ImageLocation = dataGridProduk.Rows[e.RowIndex].Cells[5].Value.ToString();
-            txtBarcode.Text = dataGridProduk.Rows[e.RowIndex].Cells[6].Value.ToString();
+            if (e.RowIndex >= 0 && e.RowIndex < dataGridProduk.Rows.Count)
+            {
+                // Isi field dari data baris yang diklik
+                txtProdukId.Text = dataGridProduk.Rows[e.RowIndex].Cells[0].Value?.ToString();
+                cmbKategoriId.SelectedValue = dataGridProduk.Rows[e.RowIndex].Cells[1].Value?.ToString();
+                txtNamaProduk.Text = dataGridProduk.Rows[e.RowIndex].Cells[2].Value?.ToString();
+                txtStok.Text = dataGridProduk.Rows[e.RowIndex].Cells[3].Value?.ToString();
+                txtHarga.Text = dataGridProduk.Rows[e.RowIndex].Cells[4].Value?.ToString();
+                picProduk.ImageLocation = dataGridProduk.Rows[e.RowIndex].Cells[5].Value?.ToString();
+                txtBarcode.Text = dataGridProduk.Rows[e.RowIndex].Cells[6].Value?.ToString();
 
-            btnSimpan.Text = "Ubah";
-            btnBatal.Text = "Hapus";
+                btnSimpan.Text = "Update";
+                btnBatal.Text = "Hapus";
+            }
+            else
+            {
+                // Klik di area kosong / header — reset form
+
+                txtProdukId.Clear();
+                cmbKategoriId.SelectedIndex = -1;
+                txtNamaProduk.Clear();
+                txtStok.Clear();
+                txtHarga.Clear();
+                picProduk.ImageLocation = null;
+                txtBarcode.Clear();
+                GenerateProdukId();
+                btnSimpan.Text = "Simpan";
+                btnBatal.Text = "Batal";
+            }
         }
+
 
         private void btnBatal_Click(object sender, EventArgs e)
         {
@@ -348,6 +390,13 @@ namespace KasMin_Kasir_Mini_Market
 
         private void frmProduk_FormClosing_1(object sender, FormClosingEventArgs e)
         {
+            StopCamera();
+
+            if (btnScanBarcode.Text == "Stop Scan")
+            {
+                MessageBox.Show("Harap Stop Scanning Terlebih Dahulu! ", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (videoSource != null && videoSource.IsRunning)
             {
                 try
@@ -363,7 +412,6 @@ namespace KasMin_Kasir_Mini_Market
                     MessageBox.Show("Gagal menghentikan kamera: " + ex.Message);
                 }
             }
-
         }
 }
 }
