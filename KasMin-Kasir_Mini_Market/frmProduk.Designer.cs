@@ -158,6 +158,7 @@
             picBarcode.Location = new Point(964, 132);
             picBarcode.Name = "picBarcode";
             picBarcode.Size = new Size(204, 98);
+            picBarcode.SizeMode = PictureBoxSizeMode.StretchImage;
             picBarcode.TabIndex = 17;
             picBarcode.TabStop = false;
             // 
@@ -207,6 +208,7 @@
             btnSimpan.TabIndex = 21;
             btnSimpan.Text = "Simpan";
             btnSimpan.UseVisualStyleBackColor = true;
+            btnSimpan.Click += btnSimpan_Click_1;
             // 
             // label9
             // 

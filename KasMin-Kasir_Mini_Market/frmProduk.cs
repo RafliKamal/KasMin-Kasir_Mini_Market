@@ -9,6 +9,11 @@ using MySqlConnector;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using ZXing;
+using ZXing.Common;
+using ZXing.Multi;
+using ZXing.Rendering;
+using ZXing.Windows.Compatibility;
+using MessagingToolkit.Barcode;
 
 namespace KasMin_Kasir_Mini_Market
 {
@@ -30,43 +35,47 @@ namespace KasMin_Kasir_Mini_Market
             if (barcodeDetected) return;
 
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
-            picBarcode.Image = (Bitmap)frame.Clone();
+
+            // Salin frame untuk ditampilkan (harus Invoke karena akses ke UI dari background thread)
+            picBarcode.Invoke(new MethodInvoker(delegate
+            {
+                picBarcode.Image?.Dispose(); // buang gambar lama biar nggak bocor memori
+                picBarcode.Image = (Bitmap)frame.Clone(); // tampilkan frame ke PictureBox
+            }));
 
             try
             {
-                BarcodeReader reader = new BarcodeReader();
-                // Convert the Bitmap to a byte array
-                using (MemoryStream memoryStream = new MemoryStream())
+                BarcodeDecoder decoder = new BarcodeDecoder();
+                var result = decoder.Decode(frame); // pakai frame asli untuk decoding
+
+                if (result != null)
                 {
-                    frame.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
-                    byte[] frameBytes = memoryStream.ToArray();
+                    barcodeDetected = true;
 
-                    var result = reader.Decode(frameBytes); // Pass the byte array to Decode
-                    if (result != null)
+                    txtBarcode.Invoke(new MethodInvoker(delegate ()
                     {
-                        barcodeDetected = true;
+                        txtBarcode.Text = result.Text;
+                    }));
 
-                        txtBarcode.Invoke(new MethodInvoker(delegate ()
-                        {
-                            txtBarcode.Text = result.Text;
-                        }));
-
-                        // Hentikan kamera setelah barcode terbaca
-                        StopCamera();
-                    }
+                    StopCamera();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("Gagal membaca barcode: " + ex.Message);
+                // Silent catch
             }
             finally
             {
-                frame.Dispose();
+                frame.Dispose(); // buang frame setelah selesai
             }
         }
 
-        private void frmProduk_Load(object sender, EventArgs e)
+
+
+
+
+
+        private void frmProduk_Load_1(object sender, EventArgs e)
         {
             CaptureDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (CaptureDevices.Count == 0)
@@ -168,12 +177,28 @@ namespace KasMin_Kasir_Mini_Market
 
         private void btnScanBarcode_Click(object sender, EventArgs e)
         {
-            barcodeDetected = false;
-            if (videoSource != null && !videoSource.IsRunning)
+            if (videoSource == null || !videoSource.IsRunning)
             {
-                videoSource.Start();
+                if (cb_camera.SelectedIndex >= 0)
+                {
+                    barcodeDetected = false;
+                    videoSource = new VideoCaptureDevice(CaptureDevices[cb_camera.SelectedIndex].MonikerString);
+                    videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
+                    videoSource.Start();
+                    btnScanBarcode.Text = "Stop Scan";
+                }
+                else
+                {
+                    MessageBox.Show("Pilih kamera terlebih dahulu.");
+                }
+            }
+            else
+            {
+                StopCamera();
+                btnScanBarcode.Text = "Scan Barcode";
             }
         }
+
 
         private void StopCamera()
         {
@@ -182,15 +207,22 @@ namespace KasMin_Kasir_Mini_Market
                 videoSource.SignalToStop();
                 videoSource.NewFrame -= new NewFrameEventHandler(VideoSource_NewFrame);
             }
+
+            btnScanBarcode.Invoke(new MethodInvoker(() =>
+            {
+                btnScanBarcode.Text = "Scan Barcode";
+            }));
         }
+
 
         private void frmProduk_FormClosing(object sender, FormClosingEventArgs e)
         {
             StopCamera();
         }
 
-        private void frmProduk_Load_1(object sender, EventArgs e)
+        private void btnSimpan_Click_1(object sender, EventArgs e)
         {
+            using
         }
     }
 }
