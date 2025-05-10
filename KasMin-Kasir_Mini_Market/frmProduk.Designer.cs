@@ -38,7 +38,7 @@
             label5 = new Label();
             label6 = new Label();
             txtHarga = new TextBox();
-            dataGridView1 = new DataGridView();
+            dataGridProduk = new DataGridView();
             picProduk = new PictureBox();
             picBarcode = new PictureBox();
             label7 = new Label();
@@ -50,7 +50,7 @@
             btnBatal = new Button();
             cmbKategoriId = new ComboBox();
             cb_camera = new ComboBox();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProduk).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picProduk).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).BeginInit();
             SuspendLayout();
@@ -137,21 +137,24 @@
             txtHarga.Size = new Size(204, 23);
             txtHarga.TabIndex = 8;
             // 
-            // dataGridView1
+            // dataGridProduk
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(288, 101);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(633, 432);
-            dataGridView1.TabIndex = 14;
+            dataGridProduk.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridProduk.Location = new Point(288, 101);
+            dataGridProduk.Name = "dataGridProduk";
+            dataGridProduk.Size = new Size(633, 432);
+            dataGridProduk.TabIndex = 14;
+            dataGridProduk.CellClick += dataGridProduk_CellClick;
             // 
             // picProduk
             // 
             picProduk.Location = new Point(43, 388);
             picProduk.Name = "picProduk";
             picProduk.Size = new Size(202, 145);
+            picProduk.SizeMode = PictureBoxSizeMode.StretchImage;
             picProduk.TabIndex = 15;
             picProduk.TabStop = false;
+            picProduk.Click += picProduk_Click_1;
             // 
             // picBarcode
             // 
@@ -229,6 +232,7 @@
             btnBatal.TabIndex = 23;
             btnBatal.Text = "Batal";
             btnBatal.UseVisualStyleBackColor = true;
+            btnBatal.Click += btnBatal_Click;
             // 
             // cmbKategoriId
             // 
@@ -262,7 +266,7 @@
             Controls.Add(picBarcode);
             Controls.Add(label7);
             Controls.Add(picProduk);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridProduk);
             Controls.Add(label5);
             Controls.Add(label6);
             Controls.Add(txtHarga);
@@ -276,8 +280,9 @@
             Name = "frmProduk";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmProduk";
+            FormClosing += frmProduk_FormClosing_1;
             Load += frmProduk_Load_1;
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridProduk).EndInit();
             ((System.ComponentModel.ISupportInitialize)picProduk).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).EndInit();
             ResumeLayout(false);
@@ -296,7 +301,7 @@
         private Label label5;
         private Label label6;
         private TextBox txtHarga;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridProduk;
         private PictureBox picProduk;
         private PictureBox picBarcode;
         private Label label7;

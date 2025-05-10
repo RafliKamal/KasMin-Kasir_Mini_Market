@@ -12,6 +12,8 @@ namespace KasMin_Kasir_Mini_Market
 {
     public partial class frmDashboard : Form
     {
+        public string UserId { get; set; } // Tambahkan ini
+        public string Nama { get; set; } // Tambahkan ini
         public frmDashboard()
         {
             InitializeComponent();
@@ -43,6 +45,8 @@ namespace KasMin_Kasir_Mini_Market
         {
             frmTransaksi transaksi = new frmTransaksi();
             transaksi.MdiParent = this;
+            transaksi.CurrentUserId = this.UserId; // Kirim userId ke frmTransaksi
+            transaksi.NamaKasir = this.Nama; // Kirim nama ke frmTransaksi
             transaksi.Show();
         }
 

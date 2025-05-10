@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
+            dataGridTransaksi = new DataGridView();
             txtTransaksiId = new TextBox();
             label1 = new Label();
             label2 = new Label();
@@ -44,7 +44,6 @@
             btnUpdate = new Button();
             label6 = new Label();
             label7 = new Label();
-            cmbNamaKasir = new ComboBox();
             dtpTanggal = new DateTimePicker();
             cmbNamaKategori = new ComboBox();
             cmbNamaProduk = new ComboBox();
@@ -55,19 +54,22 @@
             label13 = new Label();
             lblStok = new Label();
             btnBatalkan = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            cb_camera = new ComboBox();
+            txtBarcode = new TextBox();
+            txtNamaKasir = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)dataGridTransaksi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dataGridTransaksi
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(277, 131);
-            dataGridView1.Margin = new Padding(2);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(592, 335);
-            dataGridView1.TabIndex = 0;
+            dataGridTransaksi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridTransaksi.Location = new Point(277, 131);
+            dataGridTransaksi.Margin = new Padding(2);
+            dataGridTransaksi.Name = "dataGridTransaksi";
+            dataGridTransaksi.RowHeadersWidth = 62;
+            dataGridTransaksi.Size = new Size(592, 335);
+            dataGridTransaksi.TabIndex = 0;
             // 
             // txtTransaksiId
             // 
@@ -163,12 +165,11 @@
             picBarcode.Size = new Size(204, 98);
             picBarcode.TabIndex = 14;
             picBarcode.TabStop = false;
-            picBarcode.Click += pictureBox1_Click;
             // 
             // btnBayar
             // 
             btnBayar.Font = new Font("Segoe UI Semibold", 15F, FontStyle.Bold);
-            btnBayar.Location = new Point(909, 394);
+            btnBayar.Location = new Point(909, 421);
             btnBayar.Margin = new Padding(2);
             btnBayar.Name = "btnBayar";
             btnBayar.Size = new Size(204, 51);
@@ -178,7 +179,7 @@
             // 
             // btnHapus
             // 
-            btnHapus.Location = new Point(1016, 284);
+            btnHapus.Location = new Point(1016, 311);
             btnHapus.Margin = new Padding(2);
             btnHapus.Name = "btnHapus";
             btnHapus.Size = new Size(97, 30);
@@ -188,7 +189,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(909, 284);
+            btnUpdate.Location = new Point(909, 311);
             btnUpdate.Margin = new Padding(2);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(97, 30);
@@ -219,14 +220,6 @@
             label7.Text = "Mini Market";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // cmbNamaKasir
-            // 
-            cmbNamaKasir.FormattingEnabled = true;
-            cmbNamaKasir.Location = new Point(34, 206);
-            cmbNamaKasir.Name = "cmbNamaKasir";
-            cmbNamaKasir.Size = new Size(202, 23);
-            cmbNamaKasir.TabIndex = 20;
-            // 
             // dtpTanggal
             // 
             dtpTanggal.Location = new Point(32, 259);
@@ -241,7 +234,7 @@
             cmbNamaKategori.Name = "cmbNamaKategori";
             cmbNamaKategori.Size = new Size(202, 23);
             cmbNamaKategori.TabIndex = 22;
-            cmbNamaKategori.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            cmbNamaKategori.SelectedIndexChanged += cmbNamaKategori_SelectedIndexChanged;
             // 
             // cmbNamaProduk
             // 
@@ -250,6 +243,7 @@
             cmbNamaProduk.Name = "cmbNamaProduk";
             cmbNamaProduk.Size = new Size(202, 23);
             cmbNamaProduk.TabIndex = 23;
+            cmbNamaProduk.SelectedIndexChanged += cmbNamaProduk_SelectedIndexChanged;
             // 
             // btnTambahProduk
             // 
@@ -319,7 +313,7 @@
             // 
             // btnBatalkan
             // 
-            btnBatalkan.Location = new Point(909, 324);
+            btnBatalkan.Location = new Point(909, 351);
             btnBatalkan.Margin = new Padding(2);
             btnBatalkan.Name = "btnBatalkan";
             btnBatalkan.Size = new Size(204, 30);
@@ -327,11 +321,37 @@
             btnBatalkan.Text = "Batalkan Transaksi";
             btnBatalkan.UseVisualStyleBackColor = true;
             // 
+            // cb_camera
+            // 
+            cb_camera.FormattingEnabled = true;
+            cb_camera.Location = new Point(909, 106);
+            cb_camera.Name = "cb_camera";
+            cb_camera.Size = new Size(204, 23);
+            cb_camera.TabIndex = 35;
+            // 
+            // txtBarcode
+            // 
+            txtBarcode.Location = new Point(909, 276);
+            txtBarcode.Name = "txtBarcode";
+            txtBarcode.Size = new Size(204, 23);
+            txtBarcode.TabIndex = 33;
+            // 
+            // txtNamaKasir
+            // 
+            txtNamaKasir.Location = new Point(34, 205);
+            txtNamaKasir.Margin = new Padding(2);
+            txtNamaKasir.Name = "txtNamaKasir";
+            txtNamaKasir.Size = new Size(204, 23);
+            txtNamaKasir.TabIndex = 36;
+            // 
             // frmTransaksi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1146, 558);
+            Controls.Add(txtNamaKasir);
+            Controls.Add(cb_camera);
+            Controls.Add(txtBarcode);
             Controls.Add(btnBatalkan);
             Controls.Add(lblStok);
             Controls.Add(label13);
@@ -342,7 +362,6 @@
             Controls.Add(cmbNamaProduk);
             Controls.Add(cmbNamaKategori);
             Controls.Add(dtpTanggal);
-            Controls.Add(cmbNamaKasir);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(btnUpdate);
@@ -358,12 +377,13 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtTransaksiId);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridTransaksi);
             Margin = new Padding(2);
             Name = "frmTransaksi";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmTransaksi";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Load += frmTransaksi_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridTransaksi).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBarcode).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -371,7 +391,7 @@
 
         #endregion
 
-        private DataGridView dataGridView1;
+        private DataGridView dataGridTransaksi;
         private TextBox txtTransaksiId;
         private Label label1;
         private Label label2;
@@ -387,7 +407,6 @@
         private Button btnUpdate;
         private Label label6;
         private Label label7;
-        private ComboBox cmbNamaKasir;
         private DateTimePicker dtpTanggal;
         private ComboBox cmbNamaKategori;
         private ComboBox cmbNamaProduk;
@@ -398,5 +417,8 @@
         private Label label13;
         private Label lblStok;
         private Button btnBatalkan;
+        private ComboBox cb_camera;
+        private TextBox txtBarcode;
+        private TextBox txtNamaKasir;
     }
 }

@@ -32,46 +32,73 @@ namespace KasMin_Kasir_Mini_Market
 
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            if (barcodeDetected) return;
-
             Bitmap frame = (Bitmap)eventArgs.Frame.Clone();
 
-            // Salin frame untuk ditampilkan (harus Invoke karena akses ke UI dari background thread)
-            picBarcode.Invoke(new MethodInvoker(delegate
+            if (picBarcode.IsHandleCreated && !picBarcode.IsDisposed)
             {
-                picBarcode.Image?.Dispose(); // buang gambar lama biar nggak bocor memori
-                picBarcode.Image = (Bitmap)frame.Clone(); // tampilkan frame ke PictureBox
-            }));
+                picBarcode.Invoke(new MethodInvoker(delegate
+                {
+                    picBarcode.Image?.Dispose();
+                    picBarcode.Image = (Bitmap)frame.Clone();
+                }));
+            }
+
+
+            if (barcodeDetected)
+            {
+                frame.Dispose();
+                return;
+            }
 
             try
             {
                 BarcodeDecoder decoder = new BarcodeDecoder();
-                var result = decoder.Decode(frame); // pakai frame asli untuk decoding
+                var result = decoder.Decode(frame);
 
                 if (result != null)
                 {
                     barcodeDetected = true;
 
-                    txtBarcode.Invoke(new MethodInvoker(delegate ()
+                    if (txtBarcode.IsHandleCreated && !txtBarcode.IsDisposed)
                     {
-                        txtBarcode.Text = result.Text;
-                    }));
+                        txtBarcode.Invoke(new MethodInvoker(delegate ()
+                        {
+                            txtBarcode.Text = result.Text;
+                        }));
+                    }
 
-                    StopCamera();
+                    if (btnScanBarcode.IsHandleCreated && !btnScanBarcode.IsDisposed)
+                    {
+                        btnScanBarcode.Invoke(new MethodInvoker(() =>
+                        {
+                            btnScanBarcode.Text = "Stop Scan";
+                        }));
+                    }
                 }
             }
             catch
             {
-                // Silent catch
+                // ignore
             }
             finally
             {
-                frame.Dispose(); // buang frame setelah selesai
+                frame.Dispose();
             }
         }
 
 
 
+        private void DisplayData()
+        {
+            using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
+            {
+                conn.Open();
+                MySqlDataAdapter da = new MySqlDataAdapter("SELECT * FROM tb_produk", conn);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                dataGridProduk.DataSource = dt;
+            }
+        }
 
 
 
@@ -89,10 +116,12 @@ namespace KasMin_Kasir_Mini_Market
                 cb_camera.Items.Add(device.Name);
             }
 
-            cb_camera.SelectedIndex = 0;
+            cb_camera.SelectedIndex = 2;
+            btnScanBarcode.Text = "Stop Scan";
             videoSource = new VideoCaptureDevice(CaptureDevices[cb_camera.SelectedIndex].MonikerString);
             videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
             videoSource.Start();
+            DisplayData();
 
             btnBatal.Text = "Batal";
             btnSimpan.Text = "Simpan";
@@ -134,7 +163,7 @@ namespace KasMin_Kasir_Mini_Market
             }
         }
 
-        private void picProduk_Click(object sender, EventArgs e)
+        private void picProduk_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
@@ -144,18 +173,42 @@ namespace KasMin_Kasir_Mini_Market
             }
         }
 
-        private void btnSimpan_Click(object sender, EventArgs e)
+        private void btnSimpan_Click_1(object sender, EventArgs e)
         {
             if (btnSimpan.Text == "Simpan")
+            {
+                if(txtStok.Text == "" || txtNamaProduk.Text == "" || txtHarga.Text == "" || cmbKategoriId.SelectedIndex == -1 || txtBarcode.Text == "")
+                {
+                    MessageBox.Show("Silahkan isi semua data produk!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+                    {
+                        connection.Open();
+                        MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tb_produk (produk_id, kategori_id, nama_produk, harga, stok, gambar_produk, barcode) 
+                            VALUES (@produk_id, @kategori_id, @nama_produk, @harga, @stok, @gambar_produk, @barcode)", connection);
+                        cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
+                        cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
+                        cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
+                        cmd.Parameters.AddWithValue("@harga", int.Parse(txtHarga.Text));
+                        cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
+                        cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
+                        cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (btnSimpan.Text == "Ubah")
             {
                 using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
                 {
                     connection.Open();
-                    MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tb_produk 
-                        (produk_id, kategori_id, nama_produk, harga, stok, gambar_produk, barcode) 
-                        VALUES 
-                        (@produk_id, @kategori_id, @nama_produk, @harga, @stok, @gambar_produk, @barcode)", connection);
-
+                    MySqlCommand cmd = new MySqlCommand(@"UPDATE tb_produk 
+                        SET kategori_id = @kategori_id, nama_produk = @nama_produk, harga = @harga, stok = @stok, gambar_produk = @gambar_produk, barcode = @barcode 
+                        WHERE produk_id = @produk_id", connection);
                     cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
                     cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
                     cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
@@ -163,14 +216,8 @@ namespace KasMin_Kasir_Mini_Market
                     cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
                     cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
                     cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
-
                     cmd.ExecuteNonQuery();
                 }
-
-                MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (btnSimpan.Text == "Ubah")
-            {
                 MessageBox.Show("Data produk berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -194,35 +241,129 @@ namespace KasMin_Kasir_Mini_Market
             }
             else
             {
-                StopCamera();
-                btnScanBarcode.Text = "Scan Barcode";
+                Task.Run(() =>
+                {
+                    StopCamera();
+                    if (picBarcode.InvokeRequired)
+                    {
+                        picBarcode.Invoke(new MethodInvoker(() => picBarcode.Image = null));
+                    }
+                    else
+                    {
+                        picBarcode.Image = null;
+                    }
+                });
             }
+
         }
 
+
+        private readonly object cameraLock = new object();
 
         private void StopCamera()
         {
-            if (videoSource != null && videoSource.IsRunning)
+            lock (cameraLock)
             {
-                videoSource.SignalToStop();
-                videoSource.NewFrame -= new NewFrameEventHandler(VideoSource_NewFrame);
+                if (videoSource != null)
+                {
+                    if (videoSource.IsRunning)
+                    {
+                        try
+                        {
+                            videoSource.SignalToStop();
+                            videoSource.WaitForStop();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Gagal menghentikan kamera: " + ex.Message);
+                        }
+                    }
+
+                    videoSource.NewFrame -= new NewFrameEventHandler(VideoSource_NewFrame);
+                    videoSource = null; // <- penting untuk mencegah akses ulang
+                }
+
+                if (btnScanBarcode.IsHandleCreated && !btnScanBarcode.IsDisposed)
+                {
+                    btnScanBarcode.Invoke(new MethodInvoker(() =>
+                    {
+                        btnScanBarcode.Text = "Scan Barcode";
+                    }));
+                }
+            }
+        }
+
+
+
+
+
+  
+
+        private void dataGridProduk_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txtProdukId.Text = dataGridProduk.Rows[e.RowIndex].Cells[0].Value.ToString();
+            cmbKategoriId.SelectedValue = dataGridProduk.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtNamaProduk.Text = dataGridProduk.Rows[e.RowIndex].Cells[2].Value.ToString();
+            txtStok.Text = dataGridProduk.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtHarga.Text = dataGridProduk.Rows[e.RowIndex].Cells[4].Value.ToString();
+            picProduk.ImageLocation = dataGridProduk.Rows[e.RowIndex].Cells[5].Value.ToString();
+            txtBarcode.Text = dataGridProduk.Rows[e.RowIndex].Cells[6].Value.ToString();
+
+            btnSimpan.Text = "Ubah";
+            btnBatal.Text = "Hapus";
+        }
+
+        private void btnBatal_Click(object sender, EventArgs e)
+        {
+            if (btnBatal.Text == "Batal")
+            {
+                txtProdukId.Clear();
+                cmbKategoriId.SelectedIndex = -1;
+                txtNamaProduk.Clear();
+                txtStok.Clear();
+                txtHarga.Clear();
+                picProduk.ImageLocation = null;
+                txtBarcode.Clear();
+                GenerateProdukId();
+                btnSimpan.Text = "Simpan";
+            }
+            else if (btnBatal.Text == "Hapus")
+            {
+                if (MessageBox.Show("Apakah Anda yakin ingin menghapus produk ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+                    {
+                        connection.Open();
+                        MySqlCommand cmd = new MySqlCommand("DELETE FROM tb_produk WHERE produk_id = @produk_id", connection);
+                        cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                    DisplayData();
+                    MessageBox.Show("Data produk berhasil dihapus!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                btnBatal.Text = "Batal";
             }
 
-            btnScanBarcode.Invoke(new MethodInvoker(() =>
+        }
+
+        private void frmProduk_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            if (videoSource != null && videoSource.IsRunning)
             {
-                btnScanBarcode.Text = "Scan Barcode";
-            }));
-        }
+                try
+                {
+                    // Hentikan kamera secara sinkron dengan aman
+                    videoSource.SignalToStop();
+                    videoSource.WaitForStop();
+                    videoSource.NewFrame -= new NewFrameEventHandler(VideoSource_NewFrame);
+                    videoSource = null;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Gagal menghentikan kamera: " + ex.Message);
+                }
+            }
 
-
-        private void frmProduk_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            StopCamera();
         }
-
-        private void btnSimpan_Click_1(object sender, EventArgs e)
-        {
-            using
-        }
-    }
+}
 }

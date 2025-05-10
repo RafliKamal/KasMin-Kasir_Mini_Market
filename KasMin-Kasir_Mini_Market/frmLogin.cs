@@ -32,9 +32,17 @@ namespace KasMin_Kasir_Mini_Market
                     {
                         reader.Read();
                         string role = reader["role"].ToString();
+                        string userId = reader["user_id"].ToString(); // Ambil user_id dari database
+                        string nama = reader["nama"].ToString();
+
                         MessageBox.Show("Selamat Datang " + txtUsername.Text, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Hide();
                         frmDashboard frmDash = new frmDashboard();
+                        frmDash.UserId = userId; // Kirim ke Dashboard
+                        frmDash.Nama = nama; // Kirim nama ke Dashboard
+                        frmDash.Text = "Dashboard " + nama;
+
+
                         frmDash.Show();
                         if(role == "Admin")
                         {

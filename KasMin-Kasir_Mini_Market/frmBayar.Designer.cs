@@ -32,13 +32,13 @@
             label11 = new Label();
             label10 = new Label();
             label2 = new Label();
-            txtTransaksiId = new TextBox();
+            txtUangMasuk = new TextBox();
             cmbMetode = new ComboBox();
             label1 = new Label();
             label3 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
+            txtKembalian = new TextBox();
+            btnLunas = new Button();
+            btnBatal = new Button();
             SuspendLayout();
             // 
             // lblTotal
@@ -84,13 +84,13 @@
             label2.TabIndex = 32;
             label2.Text = "Uang Masuk";
             // 
-            // txtTransaksiId
+            // txtUangMasuk
             // 
-            txtTransaksiId.Location = new Point(56, 173);
-            txtTransaksiId.Margin = new Padding(2);
-            txtTransaksiId.Name = "txtTransaksiId";
-            txtTransaksiId.Size = new Size(204, 23);
-            txtTransaksiId.TabIndex = 31;
+            txtUangMasuk.Location = new Point(56, 173);
+            txtUangMasuk.Margin = new Padding(2);
+            txtUangMasuk.Name = "txtUangMasuk";
+            txtUangMasuk.Size = new Size(204, 23);
+            txtUangMasuk.TabIndex = 31;
             // 
             // cmbMetode
             // 
@@ -119,47 +119,47 @@
             label3.TabIndex = 36;
             label3.Text = "Kembalian";
             // 
-            // textBox1
+            // txtKembalian
             // 
-            textBox1.Location = new Point(56, 234);
-            textBox1.Margin = new Padding(2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 23);
-            textBox1.TabIndex = 35;
+            txtKembalian.Location = new Point(56, 234);
+            txtKembalian.Margin = new Padding(2);
+            txtKembalian.Name = "txtKembalian";
+            txtKembalian.Size = new Size(204, 23);
+            txtKembalian.TabIndex = 35;
             // 
-            // button1
+            // btnLunas
             // 
-            button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(162, 290);
-            button1.Name = "button1";
-            button1.Size = new Size(98, 37);
-            button1.TabIndex = 37;
-            button1.Text = "Lunas";
-            button1.UseVisualStyleBackColor = true;
+            btnLunas.Font = new Font("Segoe UI", 12F);
+            btnLunas.Location = new Point(162, 290);
+            btnLunas.Name = "btnLunas";
+            btnLunas.Size = new Size(98, 37);
+            btnLunas.TabIndex = 37;
+            btnLunas.Text = "Lunas";
+            btnLunas.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnBatal
             // 
-            button2.Font = new Font("Segoe UI", 12F);
-            button2.Location = new Point(56, 290);
-            button2.Name = "button2";
-            button2.Size = new Size(98, 37);
-            button2.TabIndex = 38;
-            button2.Text = "Batal";
-            button2.UseVisualStyleBackColor = true;
+            btnBatal.Font = new Font("Segoe UI", 12F);
+            btnBatal.Location = new Point(56, 290);
+            btnBatal.Name = "btnBatal";
+            btnBatal.Size = new Size(98, 37);
+            btnBatal.TabIndex = 38;
+            btnBatal.Text = "Batal";
+            btnBatal.UseVisualStyleBackColor = true;
             // 
             // frmBayar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(319, 367);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnBatal);
+            Controls.Add(btnLunas);
             Controls.Add(label3);
-            Controls.Add(textBox1);
+            Controls.Add(txtKembalian);
             Controls.Add(cmbMetode);
             Controls.Add(label1);
             Controls.Add(label2);
-            Controls.Add(txtTransaksiId);
+            Controls.Add(txtUangMasuk);
             Controls.Add(lblTotal);
             Controls.Add(label11);
             Controls.Add(label10);
@@ -182,5 +182,9 @@
         private TextBox textBox1;
         private Button button1;
         private Button button2;
+        private TextBox txtUangMasuk;
+        private TextBox txtKembalian;
+        private Button btnLunas;
+        private Button btnBatal;
     }
 }
