@@ -27,6 +27,8 @@ namespace KasMin_Kasir_Mini_Market
 
         public string NamaKasir { get; set; } // Tambahkan ini
 
+        public string tanggal { get; set; } // Tambahkan ini
+
         public frmBayar()
         {
             InitializeComponent();
@@ -48,6 +50,24 @@ namespace KasMin_Kasir_Mini_Market
             printDocument.PrintPage += PrintDocument_PrintPage;
             printPreviewDialog.ClientSize = new Size(400, 600);
             printPreviewDialog.UseAntiAlias = true;
+        }
+
+        private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Font font = new Font("Courier New", 10);
+            float lineHeight = font.GetHeight(e.Graphics) + 2;
+            float x = 10;
+            float y = 10;
+
+            using (StringReader reader = new StringReader(strukToPrint))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    e.Graphics.DrawString(line, font, Brushes.Black, x, y);
+                    y += lineHeight;
+                }
+            }
         }
 
 
@@ -84,7 +104,7 @@ namespace KasMin_Kasir_Mini_Market
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", TransaksiId);
-                cmd.Parameters.AddWithValue("@tanggal", DateTime.Now);
+                cmd.Parameters.AddWithValue("@tanggal", tanggal);
                 cmd.Parameters.AddWithValue("@masuk", uangMasuk);
                 cmd.Parameters.AddWithValue("@kembali", kembalian);
                 cmd.Parameters.AddWithValue("@total", total);
@@ -117,9 +137,12 @@ namespace KasMin_Kasir_Mini_Market
         {
             StringBuilder struk = new StringBuilder();
             struk.AppendLine("======= STRUK PEMBAYARAN =======");
-            struk.AppendLine($"Tanggal       : {DateTime.Now}");
-            struk.AppendLine($"Transaksi ID  : {TransaksiId}");
-            struk.AppendLine($"Kasir         : {NamaKasir}");
+            struk.AppendLine($"Tanggal      : {DateTime.Parse(tanggal):dd-MM-yyyy}");
+            struk.AppendLine($"Transaksi ID : {TransaksiId}");
+            struk.AppendLine($"Kasir        : {NamaKasir}");
+            struk.AppendLine("--------------------------------");
+
+            struk.AppendLine("Item            Qty   Subtotal");
             struk.AppendLine("--------------------------------");
 
             using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
@@ -141,25 +164,23 @@ namespace KasMin_Kasir_Mini_Market
                         string nama = reader["nama_produk"].ToString();
                         int jumlah = Convert.ToInt32(reader["jumlah"]);
                         int subtotal = Convert.ToInt32(reader["subtotal"]);
-                        struk.AppendLine($"{nama} x{jumlah} \tRp{subtotal:N0}");
+
+                        // Format kolom dengan padding: nama (15), qty (3), subtotal (right-align)
+                        struk.AppendLine($"{nama.PadRight(15).Substring(0, 15)} {jumlah,3}  Rp{subtotal,8:N0}");
                     }
                 }
             }
 
             struk.AppendLine("--------------------------------");
-            struk.AppendLine($"Total         : Rp {int.Parse(Total):N0}");
-            struk.AppendLine($"Uang Masuk    : Rp {int.Parse(txtUangMasuk.Text):N0}");
-            struk.AppendLine($"Kembalian     : Rp {int.Parse(txtKembalian.Text):N0}");
-            struk.AppendLine($"Metode Bayar  : {cmbMetode.Text}");
+            struk.AppendLine($"     Total        : Rp {int.Parse(Total):N0}");
+            struk.AppendLine($"     Uang Masuk   : Rp {int.Parse(txtUangMasuk.Text):N0}");
+            struk.AppendLine($"     Kembalian    : Rp {int.Parse(txtKembalian.Text):N0}");
+            struk.AppendLine($"     Metode Bayar : {cmbMetode.Text}");
             struk.AppendLine("================================");
 
             strukToPrint = struk.ToString();
         }
 
-        private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            e.Graphics.DrawString(strukToPrint, new Font("Courier New", 10), Brushes.Black, new RectangleF(0, 0, 300, 1000));
-        }
 
         private void btnCek_Click(object sender, EventArgs e)
         {

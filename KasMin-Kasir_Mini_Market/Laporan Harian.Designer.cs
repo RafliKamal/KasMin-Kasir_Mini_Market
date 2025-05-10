@@ -46,6 +46,7 @@
             dataHarian.Name = "dataHarian";
             dataHarian.Size = new Size(347, 363);
             dataHarian.TabIndex = 0;
+            dataHarian.CellClick += dataHarian_CellClick;
             // 
             // lblTotal
             // 
@@ -109,6 +110,7 @@
             DataDetailTransaksi.Name = "DataDetailTransaksi";
             DataDetailTransaksi.Size = new Size(753, 363);
             DataDetailTransaksi.TabIndex = 32;
+            DataDetailTransaksi.CellClick += DataDetailTransaksi_CellClick;
             // 
             // Laporan_Harian
             // 
@@ -125,6 +127,7 @@
             Name = "Laporan_Harian";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Laporan_Harian";
+            Load += Laporan_Harian_Load;
             ((System.ComponentModel.ISupportInitialize)dataHarian).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataDetailTransaksi).EndInit();
             ResumeLayout(false);

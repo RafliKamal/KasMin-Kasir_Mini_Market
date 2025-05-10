@@ -29,6 +29,7 @@ namespace KasMin_Kasir_Mini_Market
 
         string Barcode_produk = "";
         int TotalBayar = 0;
+  
 
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
@@ -245,7 +246,7 @@ namespace KasMin_Kasir_Mini_Market
                 // 1. Cek apakah sudah ada transaksi yang belum selesai
                 string cekQuery = @"SELECT transaksi_id 
                                 FROM tb_transaksi 
-                                WHERE user_id = @userId AND metode_pembayaran IS NULL 
+                                WHERE metode_pembayaran IS NULL 
                                 ORDER BY tanggal DESC 
                                 LIMIT 1";
 
@@ -262,8 +263,8 @@ namespace KasMin_Kasir_Mini_Market
                 {
                     // 2. Tidak ada transaksi aktif → buat baru
                     string newId = GenerateTransaksiId(conn);
-                    string insertQuery = @"INSERT INTO tb_transaksi (transaksi_id, user_id, tanggal) 
-                                       VALUES (@id, @userId, CURRENT_TIMESTAMP)";
+                    string insertQuery = @"INSERT INTO tb_transaksi (transaksi_id, user_id) 
+                                       VALUES (@id, @userId)";
 
                     MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
                     insertCmd.Parameters.AddWithValue("@id", newId);
@@ -794,10 +795,13 @@ namespace KasMin_Kasir_Mini_Market
 
         private void btnBayar_Click(object sender, EventArgs e)
         {
+
+           
             frmBayar bayar = new frmBayar();
             bayar.TransaksiId = txtTransaksiId.Text;
             bayar.Total = TotalBayar.ToString();
             bayar.NamaKasir = txtNamaKasir.Text;
+            bayar.tanggal = dtpTanggal.Value.ToString("yyyy-MM-dd");
             bayar.ShowDialog();
         }
     }
