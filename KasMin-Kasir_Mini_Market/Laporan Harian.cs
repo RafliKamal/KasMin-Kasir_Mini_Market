@@ -34,6 +34,40 @@ namespace KasMin_Kasir_Mini_Market
             printPreviewDialog.UseAntiAlias = true;
         }
 
+        private void LoadBulan()
+        {
+            using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
+            {
+                conn.Open();
+                MySqlCommand cmd = new MySqlCommand(@"
+            SELECT DISTINCT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun 
+            FROM tb_transaksi 
+            WHERE tanggal IS NOT NULL 
+            ORDER BY tahun, bulan", conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                cmbBulan.Items.Clear();
+                cmbBulan.Items.Add("All");
+
+                while (reader.Read())
+                {
+                    int bulan = reader.GetInt32("bulan");
+                    int tahun = reader.GetInt32("tahun");
+                    string namaBulan = new DateTime(tahun, bulan, 1).ToString("MMMM yyyy");
+
+                    cmbBulan.Items.Add(new KeyValuePair<string, string>($"{bulan}-{tahun}", namaBulan));
+                }
+
+                cmbBulan.DisplayMember = "Value";
+                cmbBulan.ValueMember = "Key";
+                cmbBulan.SelectedIndex = 0;
+            }
+        }
+
+
+
+
+
         private void dataHarian_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dataHarian.Rows[e.RowIndex].Cells["tanggal"].Value != DBNull.Value)
@@ -46,7 +80,9 @@ namespace KasMin_Kasir_Mini_Market
 
         private void Laporan_Harian_Load(object sender, EventArgs e)
         {
+            LoadBulan();
             DisplayDataHarian();
+            HitungTotalKeseluruhan();
         }
 
         private void DisplayDataHarian()
@@ -71,6 +107,22 @@ namespace KasMin_Kasir_Mini_Market
                 }
             }
 
+
+            dataHarian.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataHarian.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dataHarian.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dataHarian.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            dataHarian.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            dataHarian.Columns["tanggal"].HeaderText = "Tanggal";
+            dataHarian.Columns["total_pendapatan"].HeaderText = "Total Pendapatan";
+            dataHarian.Columns["jumlah_transaksi"].HeaderText = "Transaksi";
+
+            dataHarian.Columns["total_pendapatan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataHarian.Columns["total_pendapatan"].DefaultCellStyle.Format = "N0";
+
+
+
             lblTotalBulan.Text = totalSeluruhPendapatan.ToString("N0");
         }
         private void DisplaySeluruhTransaksi()
@@ -85,30 +137,23 @@ namespace KasMin_Kasir_Mini_Market
                 adapter.Fill(dt);
                 DataDetailTransaksi.DataSource = dt;
             }
+
+            DataDetailTransaksi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            DataDetailTransaksi.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            DataDetailTransaksi.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            DataDetailTransaksi.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
+            DataDetailTransaksi.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            DataDetailTransaksi.Columns["transaksi_id"].HeaderText = "ID Transaksi";
+            DataDetailTransaksi.Columns["tanggal"].HeaderText = "Tanggal";
+            DataDetailTransaksi.Columns["grand_total"].HeaderText = "Total";
+
+            DataDetailTransaksi.Columns["grand_total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DataDetailTransaksi.Columns["grand_total"].DefaultCellStyle.Format = "N0";
+
         }
 
 
-        //private void DisplayDataDetail()
-        //{
-        //    using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
-        //    {
-        //        connection.Open();
-        //        string query = @"
-        //    SELECT t.transaksi_id, t.tanggal, p.nama_produk, d.jumlah, d.subtotal 
-        //    FROM tb_transaksi t
-        //    JOIN tb_detail_transaksi d ON t.transaksi_id = d.transaksi_id
-        //    JOIN tb_produk p ON d.produk_id = p.produk_id
-        //    ";
-
-        //        MySqlCommand cmd = new MySqlCommand(query, connection);
-               
-
-        //        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-        //        DataTable dt = new DataTable();
-        //        adapter.Fill(dt);
-        //        DataDetailTransaksi.DataSource = dt;
-        //    }
-        //}
 
         private void DataDetailTransaksi_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -204,6 +249,66 @@ namespace KasMin_Kasir_Mini_Market
             e.Graphics.DrawString(strukToPrint, font, Brushes.Black, new RectangleF(10, 10, 350, 1000));
         }
 
+        private void cmbBulan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbBulan.SelectedItem != null)
+            {
+                if (cmbBulan.SelectedItem.ToString() == "All")
+                {
+                    DisplayDataHarian();
+                }
+                else
+                {
+                    var selected = (KeyValuePair<string, string>)cmbBulan.SelectedItem;
+                    var parts = selected.Key.Split('-');
+                    int bulan = int.Parse(parts[0]);
+                    int tahun = int.Parse(parts[1]);
+
+                    DisplayDataHarianPerBulanTahun(bulan, tahun);
+                }
+            }
+        }
+
+
+        private void DisplayDataHarianPerBulanTahun(int bulan, int tahun)
+        {
+            using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM view_pendapatan_harian WHERE MONTH(tanggal) = @bulan AND YEAR(tanggal) = @tahun", connection);
+                cmd.Parameters.AddWithValue("@bulan", bulan);
+                cmd.Parameters.AddWithValue("@tahun", tahun);
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dataHarian.DataSource = dt;
+            }
+
+            decimal totalPendapatanBulan = 0;
+            foreach (DataGridViewRow row in dataHarian.Rows)
+            {
+                if (row.Cells["total_pendapatan"].Value != DBNull.Value)
+                {
+                    totalPendapatanBulan += Convert.ToDecimal(row.Cells["total_pendapatan"].Value);
+                }
+            }
+
+            lblTotalBulan.Text = totalPendapatanBulan.ToString("N0");
+        }
+
+
+        private void HitungTotalKeseluruhan()
+        {
+            using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+            {
+                connection.Open();
+                MySqlCommand cmd = new MySqlCommand("SELECT SUM(total_pendapatan) FROM view_pendapatan_harian", connection);
+                object result = cmd.ExecuteScalar();
+                decimal total = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+                lbTotalKeseluruhan.Text = total.ToString("N0");
+            }
+        }
 
     }
 }

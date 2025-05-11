@@ -140,7 +140,31 @@ namespace KasMin_Kasir_Mini_Market
             GenerateProdukId();
             LoadKategori();
 
-           
+
+            dataGridProduk.Columns[0].HeaderText = "ID Produk";
+            dataGridProduk.Columns[1].HeaderText = "ID Kategori";
+            dataGridProduk.Columns[2].HeaderText = "Nama Produk";
+            dataGridProduk.Columns[3].HeaderText = "Stok";
+            dataGridProduk.Columns[4].HeaderText = "Harga";
+            dataGridProduk.Columns[5].HeaderText = "Gambar Produk";
+            dataGridProduk.Columns[6].HeaderText = "Barcode";
+            dataGridProduk.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridProduk.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridProduk.ColumnHeadersHeight = 50; // Set tinggi header kolom
+            dataGridProduk.RowHeadersVisible = false; // Sembunyikan header baris
+            dataGridProduk.RowHeadersWidth = 50; // Set lebar header baris
+            dataGridProduk.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridProduk.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridProduk.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridProduk.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridProduk.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridProduk.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridProduk.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridProduk.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            
+
+
         }
 
         private void GenerateProdukId()

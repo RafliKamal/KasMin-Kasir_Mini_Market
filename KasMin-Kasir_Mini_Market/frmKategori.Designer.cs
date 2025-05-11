@@ -42,7 +42,7 @@
             // lblKategoriId
             // 
             lblKategoriId.AutoSize = true;
-            lblKategoriId.Location = new Point(46, 79);
+            lblKategoriId.Location = new Point(46, 86);
             lblKategoriId.Name = "lblKategoriId";
             lblKategoriId.Size = new Size(64, 15);
             lblKategoriId.TabIndex = 0;
@@ -50,14 +50,14 @@
             // 
             // txtKategoriId
             // 
-            txtKategoriId.Location = new Point(46, 97);
+            txtKategoriId.Location = new Point(46, 104);
             txtKategoriId.Name = "txtKategoriId";
             txtKategoriId.Size = new Size(157, 23);
             txtKategoriId.TabIndex = 1;
             // 
             // txtNamaKategori
             // 
-            txtNamaKategori.Location = new Point(46, 160);
+            txtNamaKategori.Location = new Point(46, 167);
             txtNamaKategori.Name = "txtNamaKategori";
             txtNamaKategori.Size = new Size(157, 23);
             txtNamaKategori.TabIndex = 3;
@@ -65,7 +65,7 @@
             // lblNamaKategori
             // 
             lblNamaKategori.AutoSize = true;
-            lblNamaKategori.Location = new Point(46, 142);
+            lblNamaKategori.Location = new Point(46, 149);
             lblNamaKategori.Name = "lblNamaKategori";
             lblNamaKategori.Size = new Size(86, 15);
             lblNamaKategori.TabIndex = 2;
@@ -74,7 +74,7 @@
             // dataKategori
             // 
             dataKategori.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataKategori.Location = new Point(255, 79);
+            dataKategori.Location = new Point(255, 86);
             dataKategori.Name = "dataKategori";
             dataKategori.Size = new Size(273, 157);
             dataKategori.TabIndex = 4;
@@ -83,7 +83,7 @@
             // btnTambah
             // 
             btnTambah.AutoSize = true;
-            btnTambah.Location = new Point(127, 201);
+            btnTambah.Location = new Point(127, 208);
             btnTambah.Name = "btnTambah";
             btnTambah.Size = new Size(76, 35);
             btnTambah.TabIndex = 5;
@@ -94,7 +94,7 @@
             // btnBatal
             // 
             btnBatal.AutoSize = true;
-            btnBatal.Location = new Point(46, 201);
+            btnBatal.Location = new Point(46, 208);
             btnBatal.Name = "btnBatal";
             btnBatal.Size = new Size(76, 35);
             btnBatal.TabIndex = 6;
@@ -104,10 +104,10 @@
             // 
             // label1
             // 
-            label1.Font = new Font("Segoe UI", 16F);
-            label1.Location = new Point(4, 25);
+            label1.Font = new Font("Segoe UI Semibold", 21.75F, FontStyle.Bold);
+            label1.Location = new Point(4, 9);
             label1.Name = "label1";
-            label1.Size = new Size(576, 42);
+            label1.Size = new Size(576, 58);
             label1.TabIndex = 7;
             label1.Text = "Data Kategori";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -116,7 +116,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(580, 272);
+            ClientSize = new Size(580, 287);
             Controls.Add(label1);
             Controls.Add(btnBatal);
             Controls.Add(btnTambah);

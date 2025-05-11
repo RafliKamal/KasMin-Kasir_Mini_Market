@@ -215,13 +215,14 @@
             // label7
             // 
             label7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label7.BackColor = SystemColors.Control;
             label7.Font = new Font("Arial Rounded MT Bold", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(1, 29);
+            label7.Location = new Point(1, 22);
             label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(1145, 55);
+            label7.Size = new Size(1145, 63);
             label7.TabIndex = 19;
-            label7.Text = "Mini Market";
+            label7.Text = "Toko KasMin Sejahtera";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // dtpTanggal
@@ -346,6 +347,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             ClientSize = new Size(1146, 558);
             Controls.Add(txtNamaKasir);
             Controls.Add(cb_camera);

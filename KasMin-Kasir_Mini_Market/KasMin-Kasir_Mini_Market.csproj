@@ -46,4 +46,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Aset Gambar\NewFolder\" />
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

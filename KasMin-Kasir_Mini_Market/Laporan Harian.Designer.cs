@@ -49,7 +49,7 @@
             dataHarian.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataHarian.Location = new Point(28, 92);
             dataHarian.Name = "dataHarian";
-            dataHarian.Size = new Size(347, 363);
+            dataHarian.Size = new Size(362, 363);
             dataHarian.TabIndex = 0;
             dataHarian.CellClick += dataHarian_CellClick;
             // 
@@ -57,7 +57,7 @@
             // 
             lblTotalBulan.AutoSize = true;
             lblTotalBulan.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalBulan.Location = new Point(470, 494);
+            lblTotalBulan.Location = new Point(469, 494);
             lblTotalBulan.Margin = new Padding(2, 0, 2, 0);
             lblTotalBulan.Name = "lblTotalBulan";
             lblTotalBulan.Size = new Size(37, 45);
@@ -68,7 +68,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(422, 494);
+            label11.Location = new Point(421, 494);
             label11.Margin = new Padding(2, 0, 2, 0);
             label11.Name = "label11";
             label11.Size = new Size(58, 45);
@@ -101,7 +101,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(422, 59);
+            label2.Location = new Point(421, 59);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(142, 25);
@@ -111,16 +111,16 @@
             // DataDetailTransaksi
             // 
             DataDetailTransaksi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataDetailTransaksi.Location = new Point(422, 92);
+            DataDetailTransaksi.Location = new Point(421, 92);
             DataDetailTransaksi.Name = "DataDetailTransaksi";
-            DataDetailTransaksi.Size = new Size(753, 363);
+            DataDetailTransaksi.Size = new Size(769, 363);
             DataDetailTransaksi.TabIndex = 32;
             DataDetailTransaksi.CellClick += DataDetailTransaksi_CellClick;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(211, 67);
+            label3.Location = new Point(226, 67);
             label3.Name = "label3";
             label3.Size = new Size(37, 15);
             label3.TabIndex = 34;
@@ -130,10 +130,11 @@
             // 
             cmbBulan.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbBulan.FormattingEnabled = true;
-            cmbBulan.Location = new Point(254, 64);
+            cmbBulan.Location = new Point(269, 64);
             cmbBulan.Name = "cmbBulan";
             cmbBulan.Size = new Size(121, 23);
             cmbBulan.TabIndex = 35;
+            cmbBulan.SelectedIndexChanged += cmbBulan_SelectedIndexChanged;
             // 
             // lbTotalKeseluruhan
             // 
@@ -172,7 +173,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1207, 571);
+            ClientSize = new Size(1222, 571);
             Controls.Add(lbTotalKeseluruhan);
             Controls.Add(label5);
             Controls.Add(label6);

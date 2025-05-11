@@ -23,6 +23,19 @@ namespace KasMin_Kasir_Mini_Market
             generateID();
             displayData();
             txtKategoriId.Enabled = true;
+
+            dataKategori.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataKategori.Columns[0].FillWeight = 50; // Kolom 0 lebih kecil
+            dataKategori.Columns[1].FillWeight = 100; // Kolom 1 lebih besar
+            dataKategori.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dataKategori.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataKategori.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            dataKategori.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataKategori.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataKategori.ColumnHeadersHeight = 40; // Set tinggi header kolom
+            dataKategori.RowHeadersVisible = false; // Sembunyikan header baris
+            dataKategori.RowHeadersWidth = 50; // Set lebar header baris
+            dataKategori.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; // Nonaktifkan pengubahan ukuran header baris
         }
 
         private void displayData()

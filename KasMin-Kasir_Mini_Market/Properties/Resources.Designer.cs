@@ -59,5 +59,35 @@ namespace KasMin_Kasir_Mini_Market.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap black_geometric_memphis_social_banner_53876_116843 {
+            get {
+                object obj = ResourceManager.GetObject("black-geometric-memphis-social-banner_53876-116843", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap luxury {
+            get {
+                object obj = ResourceManager.GetObject("luxury", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap watercolor {
+            get {
+                object obj = ResourceManager.GetObject("watercolor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

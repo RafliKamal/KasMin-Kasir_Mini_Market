@@ -87,7 +87,7 @@ namespace KasMin_Kasir_Mini_Market
 
         private void btnLunas_Click(object sender, EventArgs e)
         {
-            if (!pembayaranValid)
+            if (!pembayaranValid || cmbMetode.SelectedIndex == -1)
             {
                 MessageBox.Show("Silakan periksa kembalian terlebih dahulu.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

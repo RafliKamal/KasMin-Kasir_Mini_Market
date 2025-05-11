@@ -65,7 +65,8 @@
             // 
             // btnLogin
             // 
-            btnLogin.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.FlatStyle = FlatStyle.System;
+            btnLogin.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.Location = new Point(146, 315);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(251, 37);
@@ -93,9 +94,10 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Location = new Point(146, 244);
+            label2.Font = new Font("Segoe UI", 9.75F);
+            label2.Location = new Point(146, 242);
             label2.Name = "label2";
-            label2.Size = new Size(57, 15);
+            label2.Size = new Size(64, 17);
             label2.TabIndex = 8;
             label2.Text = "Password";
             // 
@@ -103,9 +105,10 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Location = new Point(146, 183);
+            label3.Font = new Font("Segoe UI", 9.75F);
+            label3.Location = new Point(146, 181);
             label3.Name = "label3";
-            label3.Size = new Size(60, 15);
+            label3.Size = new Size(67, 17);
             label3.TabIndex = 7;
             label3.Text = "Username";
             // 
@@ -113,6 +116,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.watercolor;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(537, 414);
             Controls.Add(lblTRPL);
             Controls.Add(pictureBox1);
@@ -121,9 +126,10 @@
             Controls.Add(txtUsername);
             Controls.Add(label2);
             Controls.Add(label3);
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Login";
+            Text = "Login Page";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

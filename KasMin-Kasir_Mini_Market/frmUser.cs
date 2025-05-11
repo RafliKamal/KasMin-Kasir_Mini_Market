@@ -77,6 +77,15 @@ namespace KasMin_Kasir_Mini_Market
             cmbRole.Items.Add("Admin");
             cmbRole.Items.Add("Kasir");
 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            dataGridView1.Columns[0].FillWeight = 50; // Kolom 0 lebih kecil
+            dataGridView1.Columns[1].FillWeight = 100; // Kolom 1 lebih besar
+
+
+            dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+            dataGridView1.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             txtUserId.Enabled = false; // Disable the User ID text box
 
@@ -141,7 +150,7 @@ namespace KasMin_Kasir_Mini_Market
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void btnBatal_Click(object sender, EventArgs e)
@@ -195,7 +204,12 @@ namespace KasMin_Kasir_Mini_Market
                 btnTambah.Text = "Tambah"; // Reset button text to "Tambah"
                 btnBatal.Text = "Batal"; // Reset button text to "Batal"
             }
-            
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

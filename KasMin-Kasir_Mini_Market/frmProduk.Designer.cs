@@ -142,7 +142,7 @@
             dataGridProduk.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridProduk.Location = new Point(288, 101);
             dataGridProduk.Name = "dataGridProduk";
-            dataGridProduk.Size = new Size(633, 432);
+            dataGridProduk.Size = new Size(766, 432);
             dataGridProduk.TabIndex = 14;
             dataGridProduk.CellClick += dataGridProduk_CellClick;
             // 
@@ -158,7 +158,7 @@
             // 
             // picBarcode
             // 
-            picBarcode.Location = new Point(964, 132);
+            picBarcode.Location = new Point(1100, 147);
             picBarcode.Name = "picBarcode";
             picBarcode.Size = new Size(204, 98);
             picBarcode.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -168,7 +168,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(1013, 101);
+            label7.Location = new Point(1149, 116);
             label7.Name = "label7";
             label7.Size = new Size(95, 15);
             label7.TabIndex = 16;
@@ -177,7 +177,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(1030, 255);
+            label8.Location = new Point(1166, 270);
             label8.Name = "label8";
             label8.Size = new Size(69, 15);
             label8.TabIndex = 19;
@@ -186,7 +186,7 @@
             // 
             // txtBarcode
             // 
-            txtBarcode.Location = new Point(964, 281);
+            txtBarcode.Location = new Point(1100, 296);
             txtBarcode.Name = "txtBarcode";
             txtBarcode.Size = new Size(204, 23);
             txtBarcode.TabIndex = 18;
@@ -194,7 +194,7 @@
             // btnScanBarcode
             // 
             btnScanBarcode.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnScanBarcode.Location = new Point(964, 333);
+            btnScanBarcode.Location = new Point(1100, 348);
             btnScanBarcode.Name = "btnScanBarcode";
             btnScanBarcode.Size = new Size(204, 45);
             btnScanBarcode.TabIndex = 20;
@@ -205,7 +205,7 @@
             // btnSimpan
             // 
             btnSimpan.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnSimpan.Location = new Point(964, 475);
+            btnSimpan.Location = new Point(1100, 490);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(204, 45);
             btnSimpan.TabIndex = 21;
@@ -217,7 +217,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(465, 33);
+            label9.Location = new Point(529, 34);
             label9.Name = "label9";
             label9.Size = new Size(260, 37);
             label9.TabIndex = 22;
@@ -226,7 +226,7 @@
             // btnBatal
             // 
             btnBatal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnBatal.Location = new Point(964, 388);
+            btnBatal.Location = new Point(1100, 403);
             btnBatal.Name = "btnBatal";
             btnBatal.Size = new Size(204, 45);
             btnBatal.TabIndex = 23;
@@ -236,6 +236,7 @@
             // 
             // cmbKategoriId
             // 
+            cmbKategoriId.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKategoriId.FormattingEnabled = true;
             cmbKategoriId.Location = new Point(41, 171);
             cmbKategoriId.Name = "cmbKategoriId";
@@ -244,8 +245,9 @@
             // 
             // cb_camera
             // 
+            cb_camera.DropDownStyle = ComboBoxStyle.DropDownList;
             cb_camera.FormattingEnabled = true;
-            cb_camera.Location = new Point(964, 33);
+            cb_camera.Location = new Point(1100, 48);
             cb_camera.Name = "cb_camera";
             cb_camera.Size = new Size(204, 23);
             cb_camera.TabIndex = 25;
@@ -254,7 +256,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1212, 565);
+            ClientSize = new Size(1352, 565);
             Controls.Add(cb_camera);
             Controls.Add(cmbKategoriId);
             Controls.Add(btnBatal);

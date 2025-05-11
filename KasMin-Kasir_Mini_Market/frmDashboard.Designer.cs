@@ -82,7 +82,7 @@
             // logOutToolStripMenuItem
             // 
             logOutToolStripMenuItem.Name = "logOutToolStripMenuItem";
-            logOutToolStripMenuItem.Size = new Size(180, 22);
+            logOutToolStripMenuItem.Size = new Size(118, 22);
             logOutToolStripMenuItem.Text = "&LogOut";
             logOutToolStripMenuItem.Click += logOutToolStripMenuItem_Click;
             // 
@@ -96,14 +96,14 @@
             // kasirToolStripMenuItem
             // 
             kasirToolStripMenuItem.Name = "kasirToolStripMenuItem";
-            kasirToolStripMenuItem.Size = new Size(180, 22);
+            kasirToolStripMenuItem.Size = new Size(172, 22);
             kasirToolStripMenuItem.Text = "&Transaksi";
             kasirToolStripMenuItem.Click += kasirToolStripMenuItem_Click;
             // 
             // laporanPenjualanToolStripMenuItem
             // 
             laporanPenjualanToolStripMenuItem.Name = "laporanPenjualanToolStripMenuItem";
-            laporanPenjualanToolStripMenuItem.Size = new Size(180, 22);
+            laporanPenjualanToolStripMenuItem.Size = new Size(172, 22);
             laporanPenjualanToolStripMenuItem.Text = "&Laporan Penjualan";
             laporanPenjualanToolStripMenuItem.Click += laporanPenjualanToolStripMenuItem_Click;
             // 
@@ -111,6 +111,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            BackgroundImage = Properties.Resources.watercolor;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(830, 437);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;

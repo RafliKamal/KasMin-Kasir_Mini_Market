@@ -9,6 +9,15 @@ namespace KasMin_Kasir_Mini_Market
         public frmLogin()
         {
             InitializeComponent();
+            Panel shadowPanel = new Panel();
+            shadowPanel.Size = btnLogin.Size;
+            shadowPanel.Location = new Point(btnLogin.Left + 2, btnLogin.Top + 2); // Geser sedikit untuk efek shadow
+            shadowPanel.BackColor = Color.Gray; // Warna shadow
+            shadowPanel.Enabled = false; // Biar nggak mengganggu klik
+            shadowPanel.SendToBack(); // Pastikan ada di belakang tombol
+
+            this.Controls.Add(shadowPanel);
+            btnLogin.BringToFront(); // Tombol tetap di atas
 
         }
 
