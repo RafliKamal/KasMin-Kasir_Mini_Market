@@ -94,7 +94,8 @@ namespace KasMin_Kasir_Mini_Market
                                         txtBarcode.Text = result.Text;
                                     Barcode_produk = result.Text;
                                     TampilkanProdukDariBarcode(Barcode_produk); // Tambahkan baris ini
-
+                                    StopCameraAsync();
+                                    StartCamera();
                                 }));
                             }
                         }
@@ -419,11 +420,12 @@ namespace KasMin_Kasir_Mini_Market
 
         private void btnTambahProduk_Click(object sender, EventArgs e)
         {
-            if (txtQuantity.Text == "")
+            if (string.IsNullOrWhiteSpace(txtQuantity.Text) || !int.TryParse(txtQuantity.Text, out _) || txtQuantity.Text == "0")
             {
-                MessageBox.Show("Jumlah produk tidak boleh kosong!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Jumlah produk harus diisi dengan angka!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             else if (int.Parse(txtQuantity.Text) > int.Parse(lblStok.Text))
             {
                 MessageBox.Show("Jumlah produk melebihi stok yang tersedia!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -500,26 +502,25 @@ namespace KasMin_Kasir_Mini_Market
             lblStok.Text = stokBaru.ToString();
             DisplayData();
             clearField();
-            MessageBox.Show("Produk berhasil ditambahkan/diupdate dalam transaksi.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show("Produk berhasil ditambahkan/diupdate dalam transaksi.", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
         private void DisplayData()
         {
             using (MySqlConnection detail = new MySqlConnection(Koneksi.Connect))
             {
                 detail.Open();
                 string query = @"
-        SELECT 
-            t.produk_id, 
-            p.nama_produk AS 'Nama Produk', 
-            t.jumlah AS 'Jumlah', 
-            t.subtotal AS 'Subtotal' 
-        FROM 
-            tb_detail_transaksi t 
-        JOIN 
-            tb_produk p ON t.produk_id = p.produk_id 
-        WHERE 
-            t.transaksi_id = @transaksi_id";
+            SELECT 
+                t.produk_id, 
+                p.nama_produk AS 'Nama Produk', 
+                t.jumlah AS 'Jumlah', 
+                t.subtotal AS 'Subtotal' 
+            FROM 
+                tb_detail_transaksi t 
+            JOIN 
+                tb_produk p ON t.produk_id = p.produk_id 
+            WHERE 
+                t.transaksi_id = @transaksi_id";
 
                 MySqlDataAdapter da = new MySqlDataAdapter(query, detail);
                 da.SelectCommand.Parameters.AddWithValue("@transaksi_id", txtTransaksiId.Text);
@@ -527,10 +528,27 @@ namespace KasMin_Kasir_Mini_Market
                 da.Fill(dt);
                 dataGridTransaksi.DataSource = dt;
 
+                dataGridTransaksi.DefaultCellStyle.Font = new Font("Segoe UI", 11); // Ganti ukuran 
+                dataGridTransaksi.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold); // Header lebih besar dan bold
+
                 // Sembunyikan kolom produk_id
                 if (dataGridTransaksi.Columns.Contains("produk_id"))
                 {
                     dataGridTransaksi.Columns["produk_id"].Visible = false;
+                }
+
+                // Atur lebar kolom agar proporsional
+                dataGridTransaksi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                // Atur alignment dan formatting
+                if (dataGridTransaksi.Columns.Contains("Jumlah"))
+                {
+                    dataGridTransaksi.Columns["Jumlah"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+                if (dataGridTransaksi.Columns.Contains("Subtotal"))
+                {
+                    dataGridTransaksi.Columns["Subtotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    dataGridTransaksi.Columns["Subtotal"].DefaultCellStyle.Format = "N0";
                 }
 
                 // Hitung total subtotal
@@ -540,11 +558,11 @@ namespace KasMin_Kasir_Mini_Market
                     total += Convert.ToInt32(row["Subtotal"]);
                 }
                 TotalBayar = total;
+
                 // Tampilkan total ke label
                 lblTotal.Text = $"Rp {total:N0}";
             }
         }
-
 
 
         private void dataGridTransaksi_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -795,14 +813,22 @@ namespace KasMin_Kasir_Mini_Market
 
         private void btnBayar_Click(object sender, EventArgs e)
         {
-
-           
             frmBayar bayar = new frmBayar();
             bayar.TransaksiId = txtTransaksiId.Text;
             bayar.Total = TotalBayar.ToString();
             bayar.NamaKasir = txtNamaKasir.Text;
             bayar.tanggal = dtpTanggal.Value.ToString("yyyy-MM-dd");
+
+            bayar.Owner = this; // ⬅️ PENTING! Agar frmBayar bisa akses this.Owner sebagai frmTransaksi
             bayar.ShowDialog();
+        }
+
+        public void RefreshData()
+        {
+            clearField();
+            DisplayData();
+            CekTransaksiAktif();
+            MessageBox.Show("Refreshed!"); // Debug
         }
     }
 }

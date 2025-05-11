@@ -22,12 +22,13 @@ namespace KasMin_Kasir_Mini_Market
         public Action PerbaruiTransaksiCallback; // untuk meng-update frmTransaksi
 
         private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-        public string TransaksiId { get; set; } // Tambahkan ini
-        public string Total { get; set; } // Tambahkan ini
+        public string TransaksiId { get; set; } 
 
-        public string NamaKasir { get; set; } // Tambahkan ini
+        public string Total { get; set; } 
 
-        public string tanggal { get; set; } // Tambahkan ini
+        public string NamaKasir { get; set; } 
+
+        public string tanggal { get; set; } 
 
         public frmBayar()
         {
@@ -39,18 +40,26 @@ namespace KasMin_Kasir_Mini_Market
         private void frmBayar_Load(object sender, EventArgs e)
         {
             labelTotal.Text = "Rp " + Total;
-            txtUangMasuk.Text = "0";
-            txtKembalian.Text = "0";
+            txtUangMasuk.Text = "";
+            txtKembalian.Text = "";
             cmbMetode.Items.Add("Tunai");
             cmbMetode.Items.Add("QRIS");
 
             cmbMetode.Focus();
             btnLunas.Enabled = false;
+            cmbMetode.DropDownStyle = ComboBoxStyle.DropDownList;
 
             printDocument.PrintPage += PrintDocument_PrintPage;
-            printPreviewDialog.ClientSize = new Size(400, 600);
+
+            // SET UKURAN KERTAS STRUK CUSTOM
+            PaperSize paperSize = new PaperSize("StrukCustom", 314, 600); // width 80mm, height sesuai isi
+            printDocument.DefaultPageSettings.PaperSize = paperSize;
+
+            printPreviewDialog.Document = printDocument;
+            printPreviewDialog.ClientSize = new Size(350, 600);
             printPreviewDialog.UseAntiAlias = true;
         }
+
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
@@ -123,12 +132,14 @@ namespace KasMin_Kasir_Mini_Market
             // Memanggil callback untuk memperbarui tra
             // nsaksi
             PerbaruiTransaksiCallback?.Invoke();
-            if (this.Owner != null && this.Owner is frmTransaksi parentForm)
-            {
-                parentForm.clearField(); // sekarang cekTransaksiAktif hanya dipanggil di sini
-            }
+          
 
+            if (this.Owner is frmTransaksi parentForm)
+            {
+                parentForm.RefreshData();
+            }
             this.Close();
+            
         }
 
 
@@ -136,14 +147,16 @@ namespace KasMin_Kasir_Mini_Market
         private void BuatStruk()
         {
             StringBuilder struk = new StringBuilder();
-            struk.AppendLine("======= STRUK PEMBAYARAN =======");
-            struk.AppendLine($"Tanggal      : {DateTime.Parse(tanggal):dd-MM-yyyy}");
-            struk.AppendLine($"Transaksi ID : {TransaksiId}");
-            struk.AppendLine($"Kasir        : {NamaKasir}");
-            struk.AppendLine("--------------------------------");
+            struk.AppendLine("======== STRUK PEMBAYARAN ========");
+            struk.AppendLine("    - Toko KasMin Sejahtera - ");
+            struk.AppendLine("                              ");
+            struk.AppendLine($" Tanggal      : {DateTime.Parse(tanggal):dd-MM-yyyy}");
+            struk.AppendLine($" Transaksi ID : {TransaksiId}");
+            struk.AppendLine($" Kasir        : {NamaKasir}");
+            struk.AppendLine("---------------------------------");
 
-            struk.AppendLine("Item            Qty   Subtotal");
-            struk.AppendLine("--------------------------------");
+            struk.AppendLine(" Item            Qty   Subtotal");
+            struk.AppendLine("---------------------------------");
 
             using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
             {
@@ -171,12 +184,12 @@ namespace KasMin_Kasir_Mini_Market
                 }
             }
 
-            struk.AppendLine("--------------------------------");
-            struk.AppendLine($"     Total        : Rp {int.Parse(Total):N0}");
-            struk.AppendLine($"     Uang Masuk   : Rp {int.Parse(txtUangMasuk.Text):N0}");
-            struk.AppendLine($"     Kembalian    : Rp {int.Parse(txtKembalian.Text):N0}");
-            struk.AppendLine($"     Metode Bayar : {cmbMetode.Text}");
-            struk.AppendLine("================================");
+            struk.AppendLine("---------------------------------");
+            struk.AppendLine($"      Total        : Rp {int.Parse(Total):N0}");
+            struk.AppendLine($"      Uang Masuk   : Rp {int.Parse(txtUangMasuk.Text):N0}");
+            struk.AppendLine($"      Kembalian    : Rp {int.Parse(txtKembalian.Text):N0}");
+            struk.AppendLine($"      Metode Bayar : {cmbMetode.Text}");
+            struk.AppendLine("=================================");
 
             strukToPrint = struk.ToString();
         }

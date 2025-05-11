@@ -233,6 +233,7 @@
             // 
             // cmbNamaKategori
             // 
+            cmbNamaKategori.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNamaKategori.FormattingEnabled = true;
             cmbNamaKategori.Location = new Point(34, 308);
             cmbNamaKategori.Name = "cmbNamaKategori";
@@ -242,6 +243,7 @@
             // 
             // cmbNamaProduk
             // 
+            cmbNamaProduk.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbNamaProduk.FormattingEnabled = true;
             cmbNamaProduk.Location = new Point(34, 363);
             cmbNamaProduk.Name = "cmbNamaProduk";

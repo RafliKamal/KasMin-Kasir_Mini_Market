@@ -25,6 +25,13 @@ namespace KasMin_Kasir_Mini_Market
             printDocument.PrintPage += PrintDocument_PrintPage;
             printPreviewDialog.Document = printDocument;
             printPreviewDialog.ClientSize = new Size(400, 600);
+
+            PaperSize paperSize = new PaperSize("StrukCustom", 350, 600); // width 80mm, height sesuai isi
+            printDocument.DefaultPageSettings.PaperSize = paperSize;
+
+            printPreviewDialog.Document = printDocument;
+            printPreviewDialog.ClientSize = new Size(350, 600);
+            printPreviewDialog.UseAntiAlias = true;
         }
 
         private void dataHarian_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -47,7 +54,7 @@ namespace KasMin_Kasir_Mini_Market
             using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
             {
                 connection.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM view_pendapatan_harian", connection);
+                MySqlCommand cmd = new MySqlCommand("SELECT * FROM view_pendapatan_harian WHERE tanggal IS NOT NULL", connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -64,7 +71,7 @@ namespace KasMin_Kasir_Mini_Market
                 }
             }
 
-            lblTotal.Text = totalSeluruhPendapatan.ToString("N0");
+            lblTotalBulan.Text = totalSeluruhPendapatan.ToString("N0");
         }
         private void DisplaySeluruhTransaksi()
         {
@@ -115,25 +122,58 @@ namespace KasMin_Kasir_Mini_Market
         private void TampilkanStruk(string transaksiId)
         {
             StringBuilder struk = new StringBuilder();
-            struk.AppendLine("         STRUK TRANSAKSI        ");
-            struk.AppendLine("================================");
-            struk.AppendLine($"Tanggal       : {DateTime.Now:dd-MM-yyyy HH:mm}");
-            struk.AppendLine($"Transaksi ID  : {transaksiId}");
-            struk.AppendLine("--------------------------------");
 
             using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
             {
                 conn.Open();
-                string query = @"
+
+                // Ambil informasi transaksi utama
+                string queryTransaksi = @"
+            SELECT t.tanggal, t.uang_masuk, t.kembalian, t.grand_total, t.metode_pembayaran, u.nama
+            FROM tb_transaksi t
+            JOIN tb_user u ON t.user_id = u.user_id
+            WHERE t.transaksi_id = @transaksi_id";
+
+                MySqlCommand cmdTransaksi = new MySqlCommand(queryTransaksi, conn);
+                cmdTransaksi.Parameters.AddWithValue("@transaksi_id", transaksiId);
+
+                string tanggal = "", namaKasir = "", metode = "";
+                int total = 0, uangMasuk = 0, kembalian = 0;
+
+                using (var reader = cmdTransaksi.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        tanggal = Convert.ToDateTime(reader["tanggal"]).ToString("dd-MM-yyyy");
+                        namaKasir = reader["nama"].ToString();
+                        total = Convert.ToInt32(reader["grand_total"]);
+                        uangMasuk = Convert.ToInt32(reader["uang_masuk"]);
+                        kembalian = Convert.ToInt32(reader["kembalian"]);
+                        metode = reader["metode_pembayaran"].ToString();
+                    }
+                }
+
+                struk.AppendLine("======== STRUK PEMBAYARAN ========");
+                struk.AppendLine("    - Toko KasMin Sejahtera - ");
+                struk.AppendLine("                                ");
+                struk.AppendLine($" Tanggal      : {tanggal}");
+                struk.AppendLine($" Transaksi ID : {transaksiId}");
+                struk.AppendLine($" Kasir        : {namaKasir}");
+                struk.AppendLine("---------------------------------");
+                struk.AppendLine(" Item            Qty   Subtotal");
+                struk.AppendLine("---------------------------------");
+
+                // Ambil detail produk
+                string queryDetail = @"
             SELECT p.nama_produk, d.jumlah, d.subtotal
             FROM tb_detail_transaksi d
             JOIN tb_produk p ON d.produk_id = p.produk_id
             WHERE d.transaksi_id = @transaksi_id";
 
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@transaksi_id", transaksiId);
+                MySqlCommand cmdDetail = new MySqlCommand(queryDetail, conn);
+                cmdDetail.Parameters.AddWithValue("@transaksi_id", transaksiId);
 
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (var reader = cmdDetail.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -141,24 +181,27 @@ namespace KasMin_Kasir_Mini_Market
                         int jumlah = Convert.ToInt32(reader["jumlah"]);
                         int subtotal = Convert.ToInt32(reader["subtotal"]);
 
-                        struk.AppendLine($"{nama,-18} x{jumlah,-2} Rp{subtotal,10:N0}");
+                        struk.AppendLine($"{nama.PadRight(15).Substring(0, 15)} {jumlah,3}  Rp{subtotal,8:N0}");
                     }
                 }
+
+                struk.AppendLine("---------------------------------");
+                struk.AppendLine($"      Total        : Rp {total:N0}");
+                struk.AppendLine($"      Uang Masuk   : Rp {uangMasuk:N0}");
+                struk.AppendLine($"      Kembalian    : Rp {kembalian:N0}");
+                struk.AppendLine($"      Metode Bayar : {metode}");
+                struk.AppendLine("=================================");
             }
 
-            struk.AppendLine("================================");
-            struk.AppendLine("     Terima Kasih Telah Belanja!");
-
             strukToPrint = struk.ToString();
-
-            // Tampilkan preview cetak
             printPreviewDialog.ShowDialog();
         }
+
 
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             Font font = new Font("Courier New", 11, FontStyle.Regular);
-            e.Graphics.DrawString(strukToPrint, font, Brushes.Black, new RectangleF(10, 10, 280, 1000));
+            e.Graphics.DrawString(strukToPrint, font, Brushes.Black, new RectangleF(10, 10, 350, 1000));
         }
 
 

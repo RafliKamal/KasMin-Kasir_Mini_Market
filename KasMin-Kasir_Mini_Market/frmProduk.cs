@@ -213,6 +213,7 @@ namespace KasMin_Kasir_Mini_Market
                         cmd.ExecuteNonQuery();
                     }
                     MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    clearField();
                 }
             }
             else if (btnSimpan.Text == "Update")
@@ -236,6 +237,19 @@ namespace KasMin_Kasir_Mini_Market
                 btnSimpan.Text = "Simpan";
             }
             DisplayData();
+        }
+
+        private void clearField()
+        {
+            txtProdukId.Clear();
+            cmbKategoriId.SelectedIndex = -1;
+            txtNamaProduk.Clear();
+            txtStok.Clear();
+            txtHarga.Clear();
+            picProduk.ImageLocation = null;
+            txtBarcode.Clear();
+            GenerateProdukId();
+            btnSimpan.Text = "Simpan";
         }
 
         private void btnScanBarcode_Click(object sender, EventArgs e)
