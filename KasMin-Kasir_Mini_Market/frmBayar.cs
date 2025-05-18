@@ -69,6 +69,7 @@ namespace KasMin_Kasir_Mini_Market
         }
 
 
+
         private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
         {
             Font font = new Font("Courier New", 10);

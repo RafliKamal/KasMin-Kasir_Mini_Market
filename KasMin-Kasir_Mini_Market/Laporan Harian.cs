@@ -448,6 +448,7 @@ namespace KasMin_Kasir_Mini_Market
                     }
                 }
 
+
                 laporan.AppendLine("=============================================");
                 laporan.AppendLine($"TOTAL PENJUALAN KESELURUHAN: Rp {totalKeseluruhan:N0}");
                 laporan.AppendLine("=============================================");
