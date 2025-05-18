@@ -115,7 +115,21 @@ namespace KasMin_Kasir_Mini_Market
 
             clearFields();
         }
+        private void btnBatal_Click(object sender, EventArgs e)
+        {
+            if (btnBatal.Text == "Hapus")
+            {
+                DeleteUser();
+                btnBatal.Text = "Batal";
+            }
+            else
+            {
+                clearFields();
+                btnTambah.Text = "Tambah";
 
+            }
+
+        }
         private void UpdateUser()
         {
             using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
@@ -148,27 +162,6 @@ namespace KasMin_Kasir_Mini_Market
             DisplayData();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void btnBatal_Click(object sender, EventArgs e)
-        {
-            if (btnBatal.Text == "Hapus")
-            {
-                DeleteUser();
-                btnBatal.Text = "Batal";
-            }
-            else
-            {
-                clearFields();
-                btnTambah.Text = "Tambah";
-
-            }
-
-        }
-
         private void DeleteUser()
         {
             if (MessageBox.Show("Apakah Anda yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -185,6 +178,16 @@ namespace KasMin_Kasir_Mini_Market
             }
         }
 
+
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+      
+
+        
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.RowIndex < dataGridView1.Rows.Count)

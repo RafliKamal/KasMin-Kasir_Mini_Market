@@ -16,23 +16,36 @@ namespace KasMin_Kasir_Mini_Market
     {
         private DateTime selectedDate;
         private string strukToPrint = "";
-        private PrintDocument printDocument = new PrintDocument();
+        private PrintDocument printDocumentStruk = new PrintDocument();
+        private PrintDocument printDocumentLaporan = new PrintDocument();
+
         private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
 
         public Laporan_Harian()
         {
             InitializeComponent();
-            printDocument.PrintPage += PrintDocument_PrintPage;
-            printPreviewDialog.Document = printDocument;
-            printPreviewDialog.ClientSize = new Size(400, 600);
 
-            PaperSize paperSize = new PaperSize("StrukCustom", 350, 600); // width 80mm, height sesuai isi
-            printDocument.DefaultPageSettings.PaperSize = paperSize;
+            // === PRINT STRUK ===
+            printDocumentStruk.PrintPage += printDocumentStruk_PrintPage;
+            PaperSize paperSizeStruk = new PaperSize("StrukCustom", 350, 600); 
+            printDocumentStruk.DefaultPageSettings.PaperSize = paperSizeStruk;
 
-            printPreviewDialog.Document = printDocument;
-            printPreviewDialog.ClientSize = new Size(350, 600);
+            // === PRINT LAPORAN ===
+            printDocumentLaporan.PrintPage += printDocumentLaporan_PrintPage;
+            PaperSize paperSizeA4 = new PaperSize("A4", 700, 1200);
+            printDocumentLaporan.DefaultPageSettings.PaperSize = paperSizeA4;
+
+            // Preview Dialog Setup
+            printPreviewDialog.Document = printDocumentStruk; // default, bisa diganti saat preview laporan
+            printPreviewDialog.ClientSize = new Size(827, 1000);
             printPreviewDialog.UseAntiAlias = true;
         }
+
+
+
+
+
+
 
         private void LoadBulan()
         {
@@ -239,15 +252,30 @@ namespace KasMin_Kasir_Mini_Market
             }
 
             strukToPrint = struk.ToString();
+            printPreviewDialog.Document = printDocumentStruk; // <-- arahkan ke dokumen struk
+            printPreviewDialog.ClientSize = new Size(350, 600); // struk kecil
             printPreviewDialog.ShowDialog();
+
         }
 
 
-        private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
+        private void printDocumentStruk_PrintPage(object sender, PrintPageEventArgs e)
         {
             Font font = new Font("Courier New", 11, FontStyle.Regular);
             e.Graphics.DrawString(strukToPrint, font, Brushes.Black, new RectangleF(10, 10, 350, 1000));
         }
+
+
+
+
+        private void printDocumentLaporan_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Font font = new Font("Courier New", 10);
+            int margin = 40;
+            RectangleF area = new RectangleF(margin, margin, e.MarginBounds.Width - margin * 2, e.MarginBounds.Height - margin * 2);
+            e.Graphics.DrawString(strukToPrint, font, Brushes.Black, area);
+        }
+
 
         private void cmbBulan_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -309,6 +337,131 @@ namespace KasMin_Kasir_Mini_Market
                 lbTotalKeseluruhan.Text = total.ToString("N0");
             }
         }
+
+        private void btnCetak_Click(object sender, EventArgs e)
+        {
+            StringBuilder laporan = new StringBuilder();
+
+            using (MySqlConnection conn = new MySqlConnection(Koneksi.Connect))
+            {
+                conn.Open();
+
+                // Ambil daftar bulan-tahun unik
+                List<(int Bulan, int Tahun)> listBulanTahun = new List<(int, int)>();
+
+                using (var cmdBT = new MySqlCommand(@"
+            SELECT DISTINCT MONTH(tanggal) AS bulan, YEAR(tanggal) AS tahun
+            FROM tb_transaksi
+            WHERE tanggal IS NOT NULL
+            ORDER BY tahun, bulan", conn))
+                using (var readerBT = cmdBT.ExecuteReader())
+                {
+                    while (readerBT.Read())
+                    {
+                        listBulanTahun.Add((readerBT.GetInt32("bulan"), readerBT.GetInt32("tahun")));
+                    }
+                }
+
+                decimal totalKeseluruhan = 0;
+
+                foreach (var (bulan, tahun) in listBulanTahun)
+                {
+                    laporan.AppendLine("=============================================");
+                    laporan.AppendLine($"        LAPORAN BULAN {new DateTime(tahun, bulan, 1):MMMM yyyy}".ToUpper());
+                    laporan.AppendLine("=============================================");
+
+                    // Ambil data harian
+                    List<(DateTime Tanggal, int JumlahTransaksi, int TotalPendapatan)> listHarian = new List<(DateTime, int, int)>();
+
+                    using (var cmdHarian = new MySqlCommand(@"
+                SELECT DATE(tanggal) AS tanggal, COUNT(*) AS jumlah_transaksi, SUM(grand_total) AS total_pendapatan
+                FROM tb_transaksi
+                WHERE MONTH(tanggal) = @bulan AND YEAR(tanggal) = @tahun
+                GROUP BY DATE(tanggal)
+                ORDER BY tanggal", conn))
+                    {
+                        cmdHarian.Parameters.AddWithValue("@bulan", bulan);
+                        cmdHarian.Parameters.AddWithValue("@tahun", tahun);
+
+                        using (var readerHarian = cmdHarian.ExecuteReader())
+                        {
+                            while (readerHarian.Read())
+                            {
+                                DateTime tgl = readerHarian.GetDateTime("tanggal");
+                                int trxCount = readerHarian.GetInt32("jumlah_transaksi");
+                                int totalPendapatan = readerHarian.GetInt32("total_pendapatan");
+                                listHarian.Add((tgl, trxCount, totalPendapatan));
+                            }
+                        }
+                    }
+
+                    foreach (var harian in listHarian)
+                    {
+                        laporan.AppendLine($"Tanggal          : {harian.Tanggal:dd-MM-yyyy}");
+                        laporan.AppendLine($"Jumlah Transaksi : {harian.JumlahTransaksi}");
+                        laporan.AppendLine($"Total Pendapatan : Rp {harian.TotalPendapatan:N0}");
+                        laporan.AppendLine("Produk Terjual:");
+
+                        using (var cmdDetailProduk = new MySqlCommand(@"
+                    SELECT p.nama_produk, SUM(d.jumlah) AS qty, SUM(d.subtotal) AS subtotal
+                    FROM tb_detail_transaksi d
+                    JOIN tb_produk p ON d.produk_id = p.produk_id
+                    JOIN tb_transaksi t ON d.transaksi_id = t.transaksi_id
+                    WHERE DATE(t.tanggal) = @tanggal
+                    GROUP BY d.produk_id
+                    ORDER BY subtotal DESC", conn))
+                        {
+                            cmdDetailProduk.Parameters.AddWithValue("@tanggal", harian.Tanggal);
+
+                            using (var readerProduk = cmdDetailProduk.ExecuteReader())
+                            {
+                                while (readerProduk.Read())
+                                {
+                                    string nama = readerProduk["nama_produk"].ToString();
+                                    int qty = Convert.ToInt32(readerProduk["qty"]);
+                                    int subtotal = Convert.ToInt32(readerProduk["subtotal"]);
+
+                                    laporan.AppendLine($"  - {nama.PadRight(20).Substring(0, 20)} x{qty,2} = Rp {subtotal:N0}");
+                                }
+                            }
+                        }
+
+                        laporan.AppendLine(); // spasi antar hari
+                    }
+
+                    // Hitung total per bulan
+                    using (var cmdTotalBulan = new MySqlCommand(@"
+                SELECT SUM(grand_total) FROM tb_transaksi 
+                WHERE MONTH(tanggal) = @bulan AND YEAR(tanggal) = @tahun", conn))
+                    {
+                        cmdTotalBulan.Parameters.AddWithValue("@bulan", bulan);
+                        cmdTotalBulan.Parameters.AddWithValue("@tahun", tahun);
+
+                        object result = cmdTotalBulan.ExecuteScalar();
+                        decimal totalBulan = result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+
+                        laporan.AppendLine("---------------------------------------------");
+                        laporan.AppendLine($"TOTAL PENJUALAN BULAN {new DateTime(tahun, bulan, 1):MMMM yyyy}: Rp {totalBulan:N0}");
+                        laporan.AppendLine("---------------------------------------------\n");
+
+                        totalKeseluruhan += totalBulan;
+                    }
+                }
+
+                laporan.AppendLine("=============================================");
+                laporan.AppendLine($"TOTAL PENJUALAN KESELURUHAN: Rp {totalKeseluruhan:N0}");
+                laporan.AppendLine("=============================================");
+            }
+
+            strukToPrint = laporan.ToString();
+            printPreviewDialog.Document = printDocumentLaporan;
+            printPreviewDialog.ClientSize = new Size(827, 1000);
+            printPreviewDialog.ShowDialog();
+        }
+
+
+
+
 
     }
 }

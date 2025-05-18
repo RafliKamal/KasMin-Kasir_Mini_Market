@@ -22,18 +22,18 @@ namespace KasMin_Kasir_Mini_Market
         public Action PerbaruiTransaksiCallback; // untuk meng-update frmTransaksi
 
         private PrintPreviewDialog printPreviewDialog = new PrintPreviewDialog();
-        public string TransaksiId { get; set; } 
+        public string TransaksiId { get; set; }
 
-        public string Total { get; set; } 
+        public string Total { get; set; }
 
-        public string NamaKasir { get; set; } 
+        public string NamaKasir { get; set; }
 
-        public string tanggal { get; set; } 
+        public string tanggal { get; set; }
 
         public frmBayar()
         {
             InitializeComponent();
-            
+
 
         }
 
@@ -44,6 +44,14 @@ namespace KasMin_Kasir_Mini_Market
             txtKembalian.Text = "";
             cmbMetode.Items.Add("Tunai");
             cmbMetode.Items.Add("QRIS");
+
+
+            
+            txtUangMasuk.Enabled = false;
+            btnCek.Enabled = false;
+       
+            pembayaranValid = false;
+            btnLunas.Enabled = false;
 
             cmbMetode.Focus();
             btnLunas.Enabled = false;
@@ -132,14 +140,14 @@ namespace KasMin_Kasir_Mini_Market
             // Memanggil callback untuk memperbarui tra
             // nsaksi
             PerbaruiTransaksiCallback?.Invoke();
-          
+
 
             if (this.Owner is frmTransaksi parentForm)
             {
                 parentForm.RefreshData();
             }
             this.Close();
-            
+
         }
 
 
@@ -221,5 +229,27 @@ namespace KasMin_Kasir_Mini_Market
             }
         }
 
+        private void cmbMetode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbMetode.SelectedIndex == 0)
+            {
+                txtUangMasuk.Enabled = true;
+                txtUangMasuk.Text = "";
+                txtUangMasuk.Focus();
+                btnCek.Enabled = true;
+                txtKembalian.Text = "";
+
+            }
+            else if (cmbMetode.SelectedIndex == 1)
+            {
+                txtUangMasuk.Text = Total;
+                txtUangMasuk.Enabled = false;
+                btnCek.Enabled = false;
+                txtKembalian.Text = "0";
+                pembayaranValid = true;
+                btnLunas.Enabled = true;
+            }
+          
+        }
     }
 }

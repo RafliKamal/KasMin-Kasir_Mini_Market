@@ -77,6 +77,7 @@
             cmbMetode.Name = "cmbMetode";
             cmbMetode.Size = new Size(306, 23);
             cmbMetode.TabIndex = 34;
+            cmbMetode.SelectedIndexChanged += cmbMetode_SelectedIndexChanged;
             // 
             // label1
             // 

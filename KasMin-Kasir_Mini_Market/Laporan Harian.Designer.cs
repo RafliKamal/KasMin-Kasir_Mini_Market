@@ -40,6 +40,7 @@
             lbTotalKeseluruhan = new Label();
             label5 = new Label();
             label6 = new Label();
+            btnCetak = new Button();
             ((System.ComponentModel.ISupportInitialize)dataHarian).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataDetailTransaksi).BeginInit();
             SuspendLayout();
@@ -169,11 +170,23 @@
             label6.TabIndex = 36;
             label6.Text = "Total Transaksi Keseluruhan";
             // 
+            // btnCetak
+            // 
+            btnCetak.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCetak.Location = new Point(1060, 469);
+            btnCetak.Name = "btnCetak";
+            btnCetak.Size = new Size(130, 31);
+            btnCetak.TabIndex = 39;
+            btnCetak.Text = "Cetak Laporan";
+            btnCetak.UseVisualStyleBackColor = true;
+            btnCetak.Click += btnCetak_Click;
+            // 
             // Laporan_Harian
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1222, 571);
+            Controls.Add(btnCetak);
             Controls.Add(lbTotalKeseluruhan);
             Controls.Add(label5);
             Controls.Add(label6);
@@ -210,5 +223,6 @@
         private Label lbTotalKeseluruhan;
         private Label label5;
         private Label label6;
+        private Button btnCetak;
     }
 }

@@ -211,57 +211,7 @@ namespace KasMin_Kasir_Mini_Market
             }
         }
 
-        private void btnSimpan_Click_1(object sender, EventArgs e)
-        {
-            if (btnSimpan.Text == "Simpan")
-            {
-                if(txtStok.Text == "" || txtNamaProduk.Text == "" || txtHarga.Text == "" || cmbKategoriId.SelectedIndex == -1 || txtBarcode.Text == "")
-                {
-                    MessageBox.Show("Silahkan isi semua data produk!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                else
-                {
-                    using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
-                    {
-                        connection.Open();
-                        MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tb_produk (produk_id, kategori_id, nama_produk, harga, stok, gambar_produk, barcode) 
-                            VALUES (@produk_id, @kategori_id, @nama_produk, @harga, @stok, @gambar_produk, @barcode)", connection);
-                        cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
-                        cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
-                        cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
-                        cmd.Parameters.AddWithValue("@harga", int.Parse(txtHarga.Text));
-                        cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
-                        cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
-                        cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
-                        cmd.ExecuteNonQuery();
-                    }
-                    MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    clearField();
-                }
-            }
-            else if (btnSimpan.Text == "Update")
-            {
-                using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
-                {
-                    connection.Open();
-                    MySqlCommand cmd = new MySqlCommand(@"UPDATE tb_produk 
-                        SET kategori_id = @kategori_id, nama_produk = @nama_produk, harga = @harga, stok = @stok, gambar_produk = @gambar_produk, barcode = @barcode 
-                        WHERE produk_id = @produk_id", connection);
-                    cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
-                    cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
-                    cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
-                    cmd.Parameters.AddWithValue("@harga", int.Parse(txtHarga.Text));
-                    cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
-                    cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
-                    cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
-                    cmd.ExecuteNonQuery();
-                }
-                MessageBox.Show("Data produk berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btnSimpan.Text = "Simpan";
-            }
-            DisplayData();
-        }
+        
 
         private void clearField()
         {
@@ -393,6 +343,58 @@ namespace KasMin_Kasir_Mini_Market
             }
           
           
+        }
+
+        private void btnSimpan_Click_1(object sender, EventArgs e)
+        {
+            if (btnSimpan.Text == "Simpan")
+            {
+                if (txtStok.Text == "" || txtNamaProduk.Text == "" || txtHarga.Text == "" || cmbKategoriId.SelectedIndex == -1 || txtBarcode.Text == "")
+                {
+                    MessageBox.Show("Silahkan isi semua data produk!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else
+                {
+                    using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+                    {
+                        connection.Open();
+                        MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tb_produk (produk_id, kategori_id, nama_produk, harga, stok, gambar_produk, barcode) 
+                            VALUES (@produk_id, @kategori_id, @nama_produk, @harga, @stok, @gambar_produk, @barcode)", connection);
+                        cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
+                        cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
+                        cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
+                        cmd.Parameters.AddWithValue("@harga", int.Parse(txtHarga.Text));
+                        cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
+                        cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
+                        cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
+                        cmd.ExecuteNonQuery();
+                    }
+                    MessageBox.Show("Data produk berhasil disimpan!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    clearField();
+                }
+            }
+            else if (btnSimpan.Text == "Update")
+            {
+                using (MySqlConnection connection = new MySqlConnection(Koneksi.Connect))
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand(@"UPDATE tb_produk 
+                        SET kategori_id = @kategori_id, nama_produk = @nama_produk, harga = @harga, stok = @stok, gambar_produk = @gambar_produk, barcode = @barcode 
+                        WHERE produk_id = @produk_id", connection);
+                    cmd.Parameters.AddWithValue("@produk_id", txtProdukId.Text);
+                    cmd.Parameters.AddWithValue("@kategori_id", cmbKategoriId.SelectedValue);
+                    cmd.Parameters.AddWithValue("@nama_produk", txtNamaProduk.Text);
+                    cmd.Parameters.AddWithValue("@harga", int.Parse(txtHarga.Text));
+                    cmd.Parameters.AddWithValue("@stok", int.Parse(txtStok.Text));
+                    cmd.Parameters.AddWithValue("@gambar_produk", picProduk.ImageLocation ?? "");
+                    cmd.Parameters.AddWithValue("@barcode", txtBarcode.Text);
+                    cmd.ExecuteNonQuery();
+                }
+                MessageBox.Show("Data produk berhasil diubah!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnSimpan.Text = "Simpan";
+            }
+            DisplayData();
         }
 
 
